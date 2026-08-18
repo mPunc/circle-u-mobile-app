@@ -1,5 +1,7 @@
 import { View, Text, useColorScheme } from 'react-native'
 import { Slot, Stack } from 'expo-router'
+// @ts-ignore: NativeWind resolves the global stylesheet at runtime.
+import "../global.css"
 
 const RootLayout = () => {
   const colorScheme = useColorScheme()
