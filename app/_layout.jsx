@@ -1,0 +1,19 @@
+import { View, Text, useColorScheme } from 'react-native'
+import { Slot, Stack } from 'expo-router'
+
+const RootLayout = () => {
+  const colorScheme = useColorScheme()
+
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: true, headerStyle: { backgroundColor: '#4ea35e' } }} >
+        <Stack.Screen name="index" options={{ title: 'Home' }} />
+        <Stack.Screen name="register" options={{ title: 'Register' }} />
+      </Stack>
+
+      <Text>Footer</Text>
+    </>
+  )
+}
+
+export default RootLayout
