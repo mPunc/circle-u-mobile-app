@@ -1,10 +1,16 @@
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
+
+// themed components
+import ThemedView from '../components/ThemedView'
+import ThemedText from '../components/ThemedText'
 
 const Register = () => {
   return (
-    <View>
-      <Text>Register</Text>
-    </View>
+    <ThemedView>
+      <ThemedText>
+        Register
+      </ThemedText>
+    </ThemedView>
   )
 }
 

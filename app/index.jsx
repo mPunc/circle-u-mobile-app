@@ -1,17 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
 import { Link } from 'expo-router'
+
+// themed components
+import ThemedView from '../components/ThemedView'
+import ThemedText from '../components/ThemedText'
 
 const Home = () => {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
-      <Link href="/register">Register</Link>
-    </View>
+    <ThemedView className="items-center justify-center">
+      <ThemedText>
+        Welcome to Circle U!
+      </ThemedText>
+
+      <Link href="/register">
+        <ThemedText>
+          Register
+        </ThemedText>
+      </Link>
+    </ThemedView>
   )
 }
 
 export default Home
-
-const styles = StyleSheet.create({})
