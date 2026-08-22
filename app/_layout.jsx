@@ -1,4 +1,5 @@
 import { Slot, Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 
 // @ts-ignore: NativeWind resolves the global stylesheet at runtime.
 import "../global.css"
@@ -9,14 +10,11 @@ import ThemedText from '../components/ThemedText'
 const RootLayout = () => {
   return (
     <>
+      <StatusBar style="auto" />
       <Stack screenOptions={{ headerShown: false, headerStyle: { backgroundColor: '#9FF7FF' }, animation: 'none' }} >
         <Stack.Screen name="index" options={{ title: 'Home' }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
-
-      <ThemedText className="">
-        Footer
-      </ThemedText>
     </>
   )
 }

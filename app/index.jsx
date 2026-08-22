@@ -3,25 +3,31 @@ import { Link } from 'expo-router'
 // themed components
 import ThemedView from '../components/ThemedView'
 import ThemedText from '../components/ThemedText'
+import ThemedButton from '../components/ThemedButton'
+import Spacer from '../components/Spacer'
 
 const Home = () => {
   return (
-    <ThemedView className="items-center justify-center" safeArea={true}>
-      <ThemedText>
-        Welcome to Circle U!
+    <ThemedView className="items-center justify-center" safeArea>
+      <ThemedText variant="xlarge">
+        Circle U
       </ThemedText>
 
-      <Link href="/register">
-        <ThemedText>
-          Register
-        </ThemedText>
-      </Link>
+      <Spacer />
 
-      <Link href="/login">
-        <ThemedText>
+      <ThemedButton>
+        <Link href="/register">
+          Register
+        </Link>
+      </ThemedButton>
+
+      <Spacer height={20} />
+
+      <ThemedButton>
+        <Link href="/login">
           Login
-        </ThemedText>
-      </Link>
+        </Link>
+      </ThemedButton>
 
     </ThemedView>
   )
