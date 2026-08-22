@@ -6,7 +6,7 @@ import ThemedText from '../components/ThemedText'
 
 const Home = () => {
   return (
-    <ThemedView className="items-center justify-center">
+    <ThemedView className="items-center justify-center" safeArea={true}>
       <ThemedText>
         Welcome to Circle U!
       </ThemedText>
@@ -16,6 +16,13 @@ const Home = () => {
           Register
         </ThemedText>
       </Link>
+
+      <Link href="/login">
+        <ThemedText>
+          Login
+        </ThemedText>
+      </Link>
+
     </ThemedView>
   )
 }
