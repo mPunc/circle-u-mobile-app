@@ -29,6 +29,14 @@ const Home = () => {
         </Link>
       </ThemedButton>
 
+      <Spacer height={20} />
+
+      <ThemedButton>
+        <Link href="/profile">
+          Dashboard
+        </Link>
+      </ThemedButton>
+
     </ThemedView>
   )
 }
