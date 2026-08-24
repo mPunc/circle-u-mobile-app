@@ -4,9 +4,6 @@ import { StatusBar } from 'expo-status-bar'
 // @ts-ignore: NativeWind resolves the global stylesheet at runtime.
 import "../global.css"
 
-// themed components
-import ThemedText from '../components/ThemedText'
-
 const RootLayout = () => {
   return (
     <>

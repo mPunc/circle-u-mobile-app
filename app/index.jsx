@@ -1,4 +1,6 @@
-import { Link } from 'expo-router'
+import { router } from 'expo-router'
+import { useColorScheme } from 'nativewind'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // themed components
 import ThemedView from '../components/ThemedView'
@@ -7,6 +9,13 @@ import ThemedButton from '../components/ThemedButton'
 import Spacer from '../components/Spacer'
 
 const Home = () => {
+  const { colorScheme, setColorScheme } = useColorScheme()
+
+  const insets = useSafeAreaInsets()
+
+  // Log the safe area insets to the console
+  console.log(insets);
+
   return (
     <ThemedView className="items-center justify-center" safeArea>
       <ThemedText variant="xlarge">
@@ -15,27 +24,31 @@ const Home = () => {
 
       <Spacer />
 
-      <ThemedButton>
-        <Link href="/register">
-          Register
-        </Link>
-      </ThemedButton>
+      <ThemedButton
+        label="Register"
+        onPress={() => router.push("/register")}
+      />
 
       <Spacer height={20} />
 
-      <ThemedButton>
-        <Link href="/login">
-          Login
-        </Link>
-      </ThemedButton>
+      <ThemedButton
+        label="Login"
+        onPress={() => router.push("/login")}
+      />
 
       <Spacer height={20} />
 
-      <ThemedButton>
-        <Link href="/profile">
-          Dashboard
-        </Link>
-      </ThemedButton>
+      <ThemedButton
+        label="Dashboard"
+        onPress={() => router.push("/profile")}
+      />
+
+      <Spacer height={20} />
+
+      <ThemedButton
+        label={`Color Scheme: ${colorScheme}`}
+        onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")}
+      />
 
     </ThemedView>
   )

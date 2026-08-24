@@ -14,9 +14,11 @@ const Login = () => {
 
       <Spacer/>
 
-      <ThemedButton themed={false} onPress={() => console.log("Login button pressed")}>
-        Login
-      </ThemedButton>
+      <ThemedButton
+        label="Login"
+        themed={false}
+        onPress={() => console.log("Login button pressed")}
+      />
     </ThemedView>
   )
 }

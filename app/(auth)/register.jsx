@@ -14,9 +14,11 @@ const Register = () => {
 
       <Spacer/>
 
-      <ThemedButton themed={false} onPress={() => console.log("Register button pressed")}>
-        Register
-      </ThemedButton>
+      <ThemedButton
+        label="Register"
+        themed={false}
+        onPress={() => console.log("Register button pressed")}
+      />
     </ThemedView>
   )
 }

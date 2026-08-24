@@ -1,3 +1,5 @@
+const { Colors } = require("./constants/Colors");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -8,26 +10,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#9FF7FF",
-        primaryLight: "#D9F7FF",
-        primaryText: "#18181B",
-        primaryAccent: "#4DF0FF",
+        primary: Colors.primary,
+        primaryLight: Colors.primaryLight,
+        primaryText: Colors.primaryText,
+        primaryAccent: Colors.primaryAccent,
 
-        danger: "#ff1c1c",
-        dangerLight: "#ffbaba",
-        success: "#4ea35e",
-        successLight: "#C8E6C9",
+        danger: Colors.danger,
+        dangerLight: Colors.dangerLight,
+        success: Colors.success,
+        successLight: Colors.successLight,
 
+        lightBackground: Colors.light.background,
+        lightText: Colors.light.text,
+        lightSurface: Colors.light.surface,
+        lightAccent: Colors.light.accent,
+        lightIcon: Colors.light.icon,
+        lightIconInactive: Colors.light.iconInactive,
 
-        lightBackground: "#F2F2F2",
-        lightText: "#18181B",
-        lightSurface: "#FFFFFF",
-        lightAccent: "#9FF7FF",
-
-        darkBackground: "#1F2020",
-        darkText: "#F4F4F6",
-        darkSurface: "#2C2C2E",
-        darkAccent: "#131313"
+        darkBackground: Colors.dark.background,
+        darkText: Colors.dark.text,
+        darkSurface: Colors.dark.surface,
+        darkAccent: Colors.dark.accent,
+        darkIcon: Colors.dark.icon,
+        darkIconInactive: Colors.dark.iconInactive,
       }
     },
   },

@@ -1,6 +1,6 @@
 import { Pressable, Text } from 'react-native'
 
-const ThemedButton = ({ children, themed = true, className = "", ...props }) => {
+const ThemedButton = ({ label = "Button", themed = true, className = "", ...props }) => {
   return (
     <Pressable
       className={`px-6 py-3 rounded-sm border border-solid 
@@ -18,7 +18,7 @@ const ThemedButton = ({ children, themed = true, className = "", ...props }) => 
           "text-lightText dark:text-darkText " :
           "text-primaryText"
         }`}>
-        {children}
+        {label}
       </Text>
     </Pressable>
   )
