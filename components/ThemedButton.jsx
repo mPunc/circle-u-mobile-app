@@ -3,7 +3,7 @@ import { Pressable, Text } from 'react-native'
 const ThemedButton = ({ label = "Button", themed = true, className = "", ...props }) => {
   return (
     <Pressable
-      className={`px-6 py-3 rounded-sm border border-solid 
+      className={`px-6 py-3 rounded-md border border-solid
         ${
           themed ?
           "border-lightText dark:border-darkText bg-lightAccent dark:bg-darkAccent" :

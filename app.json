@@ -5,7 +5,7 @@
     "slug": "circle-u-mobile-app",
     "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img/logo.png",
     "userInterfaceStyle": "dark",
     "experiments": {
       "typedRoutes": true
