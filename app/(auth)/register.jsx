@@ -10,7 +10,6 @@ import InputWithLabel from '../../components/wrappers/InputWithLabel'
 const Register = () => {
   return (
     <ThemedView className="flex-1 items-center justify-center" safeArea>
-
       <ThemedLogo/>
       <ThemedText variant="subtitle">
         Welcome to Circle U!
@@ -31,18 +30,14 @@ const Register = () => {
           className="max-w-80"
         />
       </ThemedView>
-
       <Spacer height={20}/>
-
       <InputWithLabel
         label="Email:"
         className="max-w-80"
         placeholder="email"
         keyboardType="email-address"
       />
-
       <Spacer height={20}/>
-
       <InputWithLabel
         label="Password:"
         className="max-w-80"

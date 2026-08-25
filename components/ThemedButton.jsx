@@ -7,7 +7,7 @@ const ThemedButton = ({ label = "Button", themed = true, className = "", ...prop
         ${
           themed ?
           "border-lightText dark:border-darkText bg-lightAccent dark:bg-darkAccent" :
-          "border-primaryText bg-primary dark:bg-primaryAccent"
+          "border-primaryText bg-primary dark:bg-primary"
         }
         active:opacity-60 ${className}
       `}
