@@ -14,10 +14,10 @@ const Home = () => {
   const insets = useSafeAreaInsets()
 
   // Log the safe area insets to the console
-  console.log(insets);
+  // console.log(insets);
 
   return (
-    <ThemedView className="items-center justify-center" safeArea>
+    <ThemedView className="flex-1 items-center justify-center" safeArea>
       <ThemedText variant="xlarge">
         Circle U
       </ThemedText>

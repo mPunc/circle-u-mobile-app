@@ -7,7 +7,7 @@ import Spacer from '../../components/Spacer'
 
 const Login = () => {
   return (
-    <ThemedView className="items-center justify-center" safeArea>
+    <ThemedView className="flex-1 items-center justify-center" safeArea>
       <ThemedText>
         Login or not
       </ThemedText>

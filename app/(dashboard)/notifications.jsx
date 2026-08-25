@@ -6,7 +6,7 @@ import Spacer from '../../components/Spacer'
 
 const Notifications = () => {
   return (
-    <ThemedView className="items-center justify-center" safeArea>
+    <ThemedView className="flex-1 items-center justify-center" safeArea>
       <ThemedText>Notifications</ThemedText>
     </ThemedView>
   )

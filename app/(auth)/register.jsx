@@ -4,12 +4,12 @@ import ThemedView from '../../components/ThemedView'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedLogo from '../../components/ThemedLogo'
-import ThemedTextInput from '../../components/ThemedTextInput'
 import Spacer from '../../components/Spacer'
+import InputWithLabel from '../../components/wrappers/InputWithLabel'
 
 const Register = () => {
   return (
-    <ThemedView className="items-center justify-center" safeArea>
+    <ThemedView className="flex-1 items-center justify-center" safeArea>
 
       <ThemedLogo/>
       <ThemedText variant="subtitle">
@@ -21,15 +21,30 @@ const Register = () => {
 
       <Spacer/>
 
-      <ThemedTextInput
+      <ThemedView className="flex-initial flex-row w-80 gap-2">
+        <InputWithLabel
+          label="First Name:"
+          className="max-w-80"
+          />
+        <InputWithLabel
+          label="Last Name:"
+          className="max-w-80"
+        />
+      </ThemedView>
+
+      <Spacer height={20}/>
+
+      <InputWithLabel
+        label="Email:"
         className="max-w-80"
-        placeholder="e-mail"
+        placeholder="email"
         keyboardType="email-address"
       />
 
       <Spacer height={20}/>
 
-      <ThemedTextInput
+      <InputWithLabel
+        label="Password:"
         className="max-w-80"
         placeholder="password"
         secureTextEntry
@@ -40,6 +55,7 @@ const Register = () => {
       <ThemedButton
         label="Register"
         themed={false}
+        className="max-w-80 w-80"
         onPress={() => console.log("Register button pressed")}
       />
     </ThemedView>

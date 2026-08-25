@@ -6,7 +6,7 @@ const ThemedView = ({ className = "", safeArea = false, ...props }) => {
   
   return (
     <Component
-      className={`flex-1 bg-lightBackground dark:bg-darkBackground ${className}`}
+      className={`bg-lightBackground dark:bg-darkBackground ${className}`}
       {...props}
     />
   )

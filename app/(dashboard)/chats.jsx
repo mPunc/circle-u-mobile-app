@@ -6,7 +6,7 @@ import Spacer from '../../components/Spacer'
 
 const Chats = () => {
   return (
-    <ThemedView className="items-center justify-center" safeArea>
+    <ThemedView className="flex-1 items-center justify-center" safeArea>
       <ThemedText>Chats</ThemedText>
     </ThemedView>
   )
