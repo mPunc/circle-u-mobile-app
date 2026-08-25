@@ -1,10 +1,10 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@react-native-vector-icons/ionicons"
-import { useColorScheme } from "react-native";
+import { useColorScheme } from "nativewind";
 import { Colors } from "../../constants/Colors"
 
 const DashboardLayout = () => {
-  const colorScheme = useColorScheme()
+  const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme] ?? Colors.light
 
   return (

@@ -4,7 +4,8 @@ const ThemedText = ({ className = "", themed = true, variant = "default", ...pro
   const variants = {
     xlarge: "text-4xl font-bold",
     title: "text-3xl font-bold",
-    subtitle: "text-xl font-semibold",
+    subtitle: "text-2xl font-semibold",
+    large: "text-xl",
     default: "text-base",
     small: "text-sm"
   }

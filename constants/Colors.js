@@ -4,6 +4,7 @@ const Colors = {
   primaryLight: "#D9F7FF",
   primaryText: "#18181B",
   primaryAccent: "#4DF0FF",
+  neutralText: "#71717A",
 
   danger: "#ff1c1c",
   dangerLight: "#ffbaba",

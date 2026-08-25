@@ -9,13 +9,14 @@ const ThemedButton = ({ label = "Button", themed = true, className = "", ...prop
           "border-lightText dark:border-darkText bg-lightAccent dark:bg-darkAccent" :
           "border-primaryText bg-primary dark:bg-primaryAccent"
         }
-        active:opacity-60 ${className}`}
+        active:opacity-60 ${className}
+      `}
       {...props}
     >
       <Text className={`text-center font-semibold text-lg
         ${
           themed ?
-          "text-lightText dark:text-darkText " :
+          "text-lightText dark:text-darkText" :
           "text-primaryText"
         }`}>
         {label}

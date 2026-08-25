@@ -14,6 +14,7 @@ module.exports = {
         primaryLight: Colors.primaryLight,
         primaryText: Colors.primaryText,
         primaryAccent: Colors.primaryAccent,
+        neutralText: Colors.neutralText,
 
         danger: Colors.danger,
         dangerLight: Colors.dangerLight,
