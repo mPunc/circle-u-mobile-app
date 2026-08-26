@@ -1,8 +1,7 @@
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
 
 // themed components
 import ThemedView from '../../components/ThemedView'
-import ThemedScrollView from '../../components/ThemedScrollView'
 import ThemedLogo from '../../components/ThemedLogo'
 import ThemedText from '../../components/ThemedText'
 import InputWithLabel from '../../components/wrappers/InputWithLabel'
@@ -11,68 +10,58 @@ import Spacer from '../../components/Spacer'
 
 const Register = () => {
   return (
-    <ThemedView className="flex-1" safeArea>
-      <KeyboardAvoidingView
-        className="flex-1"
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <ThemedScrollView
-          className="flex-1"
-          contentContainerClassName="flex-grow items-center justify-center"
-        >
-          <Spacer className="h-3"/>
-          <ThemedLogo/>
-          <ThemedText variant="subtitle">
-            Welcome to Circle U!
-          </ThemedText>
-          <ThemedText className="text-lg">
-            Please register for an account below
-          </ThemedText>
+    <KeyboardScreen contentContainerClassName="items-center justify-center">
+      <Spacer className="h-3"/>
+      <ThemedLogo/>
+      <ThemedText variant="subtitle">
+        Welcome to Circle U!
+      </ThemedText>
+      <ThemedText className="text-lg">
+        Please register for an account below
+      </ThemedText>
 
-          <Spacer/>
+      <Spacer/>
 
-          <ThemedView className="flex-initial flex-row w-80 gap-2">
-            <InputWithLabel
-              label="First Name:"
-              autoCapitalize="words"
-              autoComplete="given-name"
-            />
-            <InputWithLabel
-              label="Last Name:"
-              autoCapitalize="words"
-              autoComplete="family-name"
-            />
-          </ThemedView>
-          <Spacer className="h-5"/>
-          <InputWithLabel
-            label="Email:"
-            placeholder="email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoComplete="email"
-            autoCorrect={false}
-          />
-          <Spacer className="h-5"/>
-          <InputWithLabel
-            label="Password:"
-            placeholder="password"
-            secureTextEntry
-            autoCapitalize="none"
-            autoComplete="new-password"
-          />
+      <ThemedView className="flex-initial flex-row w-80 gap-2">
+        <InputWithLabel
+          label="First Name:"
+          autoCapitalize="words"
+          autoComplete="given-name"
+        />
+        <InputWithLabel
+          label="Last Name:"
+          autoCapitalize="words"
+          autoComplete="family-name"
+        />
+      </ThemedView>
+      <Spacer className="h-5"/>
+      <InputWithLabel
+        label="Email:"
+        placeholder="email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoComplete="email"
+        autoCorrect={false}
+      />
+      <Spacer className="h-5"/>
+      <InputWithLabel
+        label="Password:"
+        placeholder="password"
+        secureTextEntry
+        autoCapitalize="none"
+        autoComplete="new-password"
+      />
 
-          <Spacer className="h-8"/>
+      <Spacer className="h-8"/>
 
-          <ThemedButton
-            label="Register"
-            themed={false}
-            className="max-w-80 w-80"
-            onPress={() => console.log("Register button pressed")}
-          />
-          <Spacer className="h-3"/>
-        </ThemedScrollView>
-      </KeyboardAvoidingView>
-    </ThemedView>
+      <ThemedButton
+        label="Register"
+        themed={false}
+        className="max-w-80 w-80"
+        onPress={() => console.log("Register button pressed")}
+      />
+      <Spacer className="h-3"/>
+    </KeyboardScreen>
   )
 }
 

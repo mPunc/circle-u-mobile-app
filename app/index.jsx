@@ -45,6 +45,7 @@ const Home = () => {
 
       <Spacer className="h-5" />
 
+      {/** this breaks the safeArea and scroll, idk why, it's just for testing visuals anyways */}
       <ThemedButton
         label={`Color Scheme: ${colorScheme}`}
         onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")}

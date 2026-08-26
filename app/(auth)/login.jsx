@@ -1,16 +1,16 @@
 import { router } from 'expo-router'
 
 // themed components
-import ThemedView from '../../components/ThemedView'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedLogo from '../../components/ThemedLogo'
 import Spacer from '../../components/Spacer'
 import ThemedTextInput from '../../components/ThemedTextInput'
+import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
 
 const Login = () => {
   return (
-    <ThemedView className="flex-1 items-center justify-center" safeArea>
+    <KeyboardScreen contentContainerClassName="items-center justify-center">
       <ThemedLogo/>
       <ThemedText variant="large">
         Please log into your account
@@ -45,7 +45,7 @@ const Login = () => {
         themed={false}
         onPress={() => router.push("/register")}
       />
-    </ThemedView>
+    </KeyboardScreen>
   )
 }
 
