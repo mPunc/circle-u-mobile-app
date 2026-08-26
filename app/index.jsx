@@ -29,21 +29,21 @@ const Home = () => {
         onPress={() => router.push("/register")}
       />
 
-      <Spacer height={20} />
+      <Spacer className="h-5" />
 
       <ThemedButton
         label="Login"
         onPress={() => router.push("/login")}
       />
 
-      <Spacer height={20} />
+      <Spacer className="h-5" />
 
       <ThemedButton
         label="Dashboard"
         onPress={() => router.push("/profile")}
       />
 
-      <Spacer height={20} />
+      <Spacer className="h-5" />
 
       <ThemedButton
         label={`Color Scheme: ${colorScheme}`}

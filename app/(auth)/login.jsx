@@ -16,21 +16,21 @@ const Login = () => {
         Please log into your account
       </ThemedText>
 
-      <Spacer height={30}/>
+      <Spacer className="h-8"/>
 
       <ThemedTextInput
         className="max-w-80"
         placeholder="email"
         keyboardType="email-address"
       />
-      <Spacer height={20}/>
+      <Spacer className="h-5"/>
       <ThemedTextInput
         className="max-w-80"
         placeholder="password"
         secureTextEntry
       />
 
-      <Spacer height={30}/>
+      <Spacer className="h-8"/>
 
       <ThemedButton
         className="w-1/2"
@@ -38,7 +38,7 @@ const Login = () => {
         themed={true}
         onPress={() => console.log("Login button pressed")}
       />
-      <Spacer height={20}/>
+      <Spacer className="h-5"/>
       <ThemedButton
         className="w-1/2"
         label="Register here"

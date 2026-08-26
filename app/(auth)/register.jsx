@@ -20,7 +20,7 @@ const Register = () => {
           className="flex-1"
           contentContainerClassName="flex-grow items-center justify-center"
         >
-          <Spacer height={10}/>
+          <Spacer className="h-3"/>
           <ThemedLogo/>
           <ThemedText variant="subtitle">
             Welcome to Circle U!
@@ -43,7 +43,7 @@ const Register = () => {
               autoComplete="family-name"
             />
           </ThemedView>
-          <Spacer height={20}/>
+          <Spacer className="h-5"/>
           <InputWithLabel
             label="Email:"
             placeholder="email"
@@ -52,7 +52,7 @@ const Register = () => {
             autoComplete="email"
             autoCorrect={false}
           />
-          <Spacer height={20}/>
+          <Spacer className="h-5"/>
           <InputWithLabel
             label="Password:"
             placeholder="password"
@@ -61,7 +61,7 @@ const Register = () => {
             autoComplete="new-password"
           />
 
-          <Spacer height={30}/>
+          <Spacer className="h-8"/>
 
           <ThemedButton
             label="Register"
@@ -69,7 +69,7 @@ const Register = () => {
             className="max-w-80 w-80"
             onPress={() => console.log("Register button pressed")}
           />
-          <Spacer height={10}/>
+          <Spacer className="h-3"/>
         </ThemedScrollView>
       </KeyboardAvoidingView>
     </ThemedView>

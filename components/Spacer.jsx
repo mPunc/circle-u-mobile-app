@@ -1,8 +1,8 @@
 import { View } from 'react-native'
 
-const Spacer = ({ height = 40 }) => {
+const Spacer = ({ className = "h-10" }) => {
   return (
-    <View style={{ height }} />
+    <View className={className} />
   )
 }
 
