@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { registerWithEmailAndPassword } from '../../contexts/AuthContext'
+import { useUser } from '../../hooks/useUser'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
@@ -14,8 +14,14 @@ const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const handleSubmit = () => {
-    registerWithEmailAndPassword(email, password)
+  const { register } = useUser()
+
+  const handleSubmit = async () => {
+    try {
+      await register(email, password)
+    } catch (error) {
+      console.log("Figure out what to do here soon!")
+    }
   }
 
   return (
