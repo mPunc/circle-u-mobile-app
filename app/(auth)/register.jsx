@@ -1,6 +1,8 @@
-import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
+import { useState } from 'react'
+import { registerWithEmailAndPassword } from '../../contexts/AuthContext'
 
 // themed components
+import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
 import ThemedView from '../../components/ThemedView'
 import ThemedLogo from '../../components/ThemedLogo'
 import ThemedText from '../../components/ThemedText'
@@ -9,6 +11,13 @@ import ThemedButton from '../../components/ThemedButton'
 import Spacer from '../../components/Spacer'
 
 const Register = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = () => {
+    registerWithEmailAndPassword(email, password)
+  }
+
   return (
     <KeyboardScreen contentContainerClassName="items-center justify-center">
       <Spacer className="h-3"/>
@@ -42,6 +51,8 @@ const Register = () => {
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect={false}
+        onChangeText={setEmail}
+        value={email}
       />
       <Spacer className="h-5"/>
       <InputWithLabel
@@ -50,6 +61,8 @@ const Register = () => {
         secureTextEntry
         autoCapitalize="none"
         autoComplete="new-password"
+        onChangeText={setPassword}
+        value={password}
       />
 
       <Spacer className="h-8"/>
@@ -58,7 +71,7 @@ const Register = () => {
         label="Register"
         themed={false}
         className="max-w-80 w-80"
-        onPress={() => console.log("Register button pressed")}
+        onPress={handleSubmit}
       />
       <Spacer className="h-3"/>
     </KeyboardScreen>

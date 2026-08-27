@@ -1,4 +1,5 @@
 import { router } from 'expo-router'
+import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
 
 // themed components
 import ThemedText from '../../components/ThemedText'
@@ -6,7 +7,6 @@ import ThemedButton from '../../components/ThemedButton'
 import ThemedLogo from '../../components/ThemedLogo'
 import Spacer from '../../components/Spacer'
 import ThemedTextInput from '../../components/ThemedTextInput'
-import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
 
 const Login = () => {
   return (
