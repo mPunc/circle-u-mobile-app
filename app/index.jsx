@@ -1,6 +1,7 @@
 import { router } from 'expo-router'
 import { useColorScheme } from 'nativewind'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useUser } from '../hooks/useUser'
 
 // themed components
 import ThemedView from '../components/ThemedView'
@@ -10,6 +11,8 @@ import Spacer from '../components/Spacer'
 
 const Home = () => {
   const { colorScheme, setColorScheme } = useColorScheme()
+
+  const { logout } = useUser()
 
   const insets = useSafeAreaInsets()
 
@@ -41,6 +44,13 @@ const Home = () => {
       <ThemedButton
         label="Dashboard"
         onPress={() => router.push("/profile")}
+      />
+
+      <Spacer className="h-5" />
+
+      <ThemedButton
+        label="Logout"
+        onPress={logout}
       />
 
       <Spacer className="h-5" />
