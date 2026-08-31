@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useUser } from '../../hooks/useUser'
 import { router } from 'expo-router'
+import { View, Text } from 'react-native'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
@@ -14,14 +15,10 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { login } = useUser()
+  const { login, authError } = useUser()
 
   const handleSubmit = async () => {
-    try {
-      await login(email, password)
-    } catch (error) {
-      console.log("Figure out what to do here soon!")
-    }
+    await login(email, password)
   }
 
   return (
@@ -34,22 +31,40 @@ const Login = () => {
       <Spacer className="h-8"/>
 
       <ThemedTextInput
-        className="max-w-80"
+        className={`max-w-80
+          ${authError.type === "email" || authError.type === "generic"
+            ? "border-danger focus:border-dangerLight"
+            : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
+          `}
         placeholder="email"
         keyboardType="email-address"
         onChangeText={setEmail}
         value={email}
       />
-      <Spacer className="h-5"/>
+      {authError.type === "email" ? (
+        <View className="flex-initial w-80 items-start justify-center mt-1">
+          <Text className="text-danger h-6">{authError.message}</Text>
+        </View>
+      ) : (<Spacer className="h-4"/>)}
+      <Spacer className="h-2"/>
       <ThemedTextInput
-        className="max-w-80"
+        className={`max-w-80
+          ${authError.type === "password" || authError.type === "generic"
+            ? "border-danger dark:border-danger focus:border-dangerLight"
+            : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
+          `}
         placeholder="password"
         secureTextEntry
         onChangeText={setPassword}
         value={password}
       />
+      {(authError.type === "password" || authError.type === "generic") ? (
+        <View className="flex-initial w-80 items-start justify-center mt-1">
+          <Text className="text-danger h-6">{authError.message}</Text>
+        </View>
+      ) : (<Spacer className="h-7"/>)}
 
-      <Spacer className="h-8"/>
+      <Spacer className="h-3"/>
 
       <ThemedButton
         className="w-1/2"

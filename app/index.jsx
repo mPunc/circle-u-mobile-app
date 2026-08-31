@@ -14,6 +14,14 @@ const Home = () => {
 
   const { logout } = useUser()
 
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const insets = useSafeAreaInsets()
 
   // Log the safe area insets to the console
@@ -50,7 +58,7 @@ const Home = () => {
 
       <ThemedButton
         label="Logout"
-        onPress={logout}
+        onPress={handleLogout}
       />
 
       <Spacer className="h-5" />
