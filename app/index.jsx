@@ -50,15 +50,15 @@ const Home = () => {
       <Spacer className="h-5" />
 
       <ThemedButton
-        label="Dashboard"
-        onPress={() => router.push("/profile")}
+        label="Logout"
+        onPress={handleLogout}
       />
 
       <Spacer className="h-5" />
 
       <ThemedButton
-        label="Logout"
-        onPress={handleLogout}
+        label="Dashboard"
+        onPress={() => router.push("/profile")}
       />
 
       <Spacer className="h-5" />

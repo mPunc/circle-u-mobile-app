@@ -18,7 +18,6 @@ export function UserProvider({ children }) {
       else if (error.code === "auth/missing-password") setAuthError({type: "password", message: "Please enter password."})
       else if (error.code === "auth/weak-password") setAuthError({type: "password", message: "Password should be at least 6 characters."})
       else setAuthError({type: "generic", message: "Something went wrong. Please try again."})
-      console.log(error.message)
     }
   }
 
@@ -26,6 +25,7 @@ export function UserProvider({ children }) {
     try {
       setAuthError({type: null, message: ""})
       await signInWithEmailAndPassword(auth, email, password)
+      console.log(user)
     } catch (error) {
       if (error.code === "auth/invalid-email") setAuthError({type: "email", message: "Please enter a valid email address."})
       else if (error.code === "auth/missing-password") setAuthError({type: "password", message: "Please enter password."})
@@ -51,7 +51,7 @@ export function UserProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, authError }}>
+    <AuthContext.Provider value={{ user, register, login, logout, authError, setAuthError }}>
       {children}
     </AuthContext.Provider>
   )

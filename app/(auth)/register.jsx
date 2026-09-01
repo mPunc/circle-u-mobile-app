@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { useUser } from '../../hooks/useUser'
 import { View, Text } from 'react-native'
+import { useState, useCallback } from 'react'
+import { useUser } from '../../hooks/useUser'
+import { useFocusEffect } from 'expo-router'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
@@ -15,11 +16,19 @@ const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { register, authError } = useUser()
+  const { register, authError, setAuthError } = useUser()
 
   const handleSubmit = async () => {
     await register(email, password)
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setAuthError({type: null, message: ""})
+      }
+    }, [])
+  )
 
   return (
     <KeyboardScreen contentContainerClassName="items-center justify-center">
@@ -66,9 +75,9 @@ const Register = () => {
         }
       />
       {authError.type === "email" ? (
-        <View className="flex-initial w-80 items-start justify-center mt-1">
-          <Text className="text-danger h-6">{authError.message}</Text>
-        </View>
+      <View className="flex-initial w-80 items-start justify-center mt-1">
+        <Text className="text-danger h-6">{authError.message}</Text>
+      </View>
       ) : (<Spacer className="h-7"/>)}
       <Spacer className="h-1"/>
       <InputWithLabel
@@ -85,9 +94,9 @@ const Register = () => {
         }
       />
       {(authError.type === "password" || authError.type === "generic") ? (
-        <View className="flex-initial w-80 items-start justify-center mt-1">
-          <Text className="text-danger h-6">{authError.message}</Text>
-        </View>
+      <View className="flex-initial w-80 items-start justify-center mt-1">
+        <Text className="text-danger h-6">{authError.message}</Text>
+      </View>
       ) : (<Spacer className="h-7"/>)}
 
       <Spacer className="h-3"/>

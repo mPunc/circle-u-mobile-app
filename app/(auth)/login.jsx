@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { useUser } from '../../hooks/useUser'
-import { router } from 'expo-router'
 import { View, Text } from 'react-native'
+import { useState, useCallback } from 'react'
+import { useUser } from '../../hooks/useUser'
+import { router, useFocusEffect } from 'expo-router'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
@@ -15,11 +15,19 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { login, authError } = useUser()
+  const { login, authError, setAuthError } = useUser()
 
   const handleSubmit = async () => {
     await login(email, password)
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setAuthError({type: null, message: ""})
+      }
+    }, [])
+  )
 
   return (
     <KeyboardScreen contentContainerClassName="items-center justify-center">
@@ -33,35 +41,35 @@ const Login = () => {
       <ThemedTextInput
         className={`max-w-80
           ${authError.type === "email" || authError.type === "generic"
-            ? "border-danger focus:border-dangerLight"
-            : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
-          `}
+          ? "border-danger focus:border-dangerLight"
+          : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
+        `}
         placeholder="email"
         keyboardType="email-address"
         onChangeText={setEmail}
         value={email}
       />
       {authError.type === "email" ? (
-        <View className="flex-initial w-80 items-start justify-center mt-1">
-          <Text className="text-danger h-6">{authError.message}</Text>
-        </View>
+      <View className="flex-initial w-80 items-start justify-center mt-1">
+        <Text className="text-danger h-6">{authError.message}</Text>
+      </View>
       ) : (<Spacer className="h-4"/>)}
       <Spacer className="h-2"/>
       <ThemedTextInput
         className={`max-w-80
           ${authError.type === "password" || authError.type === "generic"
-            ? "border-danger dark:border-danger focus:border-dangerLight"
-            : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
-          `}
+          ? "border-danger dark:border-danger focus:border-dangerLight"
+          : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"}
+        `}
         placeholder="password"
         secureTextEntry
         onChangeText={setPassword}
         value={password}
       />
       {(authError.type === "password" || authError.type === "generic") ? (
-        <View className="flex-initial w-80 items-start justify-center mt-1">
-          <Text className="text-danger h-6">{authError.message}</Text>
-        </View>
+      <View className="flex-initial w-80 items-start justify-center mt-1">
+        <Text className="text-danger h-6">{authError.message}</Text>
+      </View>
       ) : (<Spacer className="h-7"/>)}
 
       <Spacer className="h-3"/>
