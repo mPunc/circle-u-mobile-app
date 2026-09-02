@@ -10,15 +10,19 @@ import ThemedButton from '../../components/ThemedButton'
 import ThemedLogo from '../../components/ThemedLogo'
 import Spacer from '../../components/Spacer'
 import ThemedTextInput from '../../components/ThemedTextInput'
+import ThemedActivityIndicator from '../../components/ThemedActivityIndicator'
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { login, authError, setAuthError } = useUser()
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     await login(email, password)
+    setIsSubmitting(false)
   }
 
   useFocusEffect(
@@ -31,6 +35,7 @@ const Login = () => {
 
   return (
     <KeyboardScreen contentContainerClassName="items-center justify-center">
+      <Spacer className="h-5"/>
       <ThemedLogo/>
       <ThemedText variant="large">
         Please log into your account
@@ -79,6 +84,7 @@ const Login = () => {
         label="Login"
         themed={true}
         onPress={handleSubmit}
+        disabled={isSubmitting}
       />
       <Spacer className="h-5"/>
       <ThemedButton
@@ -86,7 +92,14 @@ const Login = () => {
         label="Register here"
         themed={false}
         onPress={() => router.push("/register")}
+        disabled={isSubmitting}
       />
+      <Spacer className="h-3"/>
+      {isSubmitting
+        ? <ThemedActivityIndicator/>
+        : <Spacer/>
+      }
+      <Spacer className="h-3"/>
     </KeyboardScreen>
   )
 }

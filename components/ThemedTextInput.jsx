@@ -1,7 +1,7 @@
 import { TextInput } from 'react-native'
 import { Colors } from '../constants/Colors'
 
-const ThemedTextInput = ({ className = "", ...props }) => {
+const ThemedTextInput = ({ className = "border-lightIconInactive dark:border-darkIconInactive focus:border-primary", ...props }) => {
   return (
     <TextInput
       className={`

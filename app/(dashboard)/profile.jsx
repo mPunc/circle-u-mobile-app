@@ -18,9 +18,6 @@ const Profile = () => {
         {user?.email ?? "No user logged in"}
       </ThemedText>
 
-      <ThemedText variant="subtitle">
-        {user?.displayName ?? "No user logged in"}
-      </ThemedText>
     </ThemedView>
   )
 }

@@ -22,8 +22,7 @@ const Home = () => {
     }
   }
 
-  const insets = useSafeAreaInsets()
-
+  // const insets = useSafeAreaInsets()
   // Log the safe area insets to the console
   // console.log(insets);
 

@@ -11,15 +11,19 @@ import ThemedText from '../../components/ThemedText'
 import InputWithLabel from '../../components/wrappers/InputWithLabel'
 import ThemedButton from '../../components/ThemedButton'
 import Spacer from '../../components/Spacer'
+import ThemedActivityIndicator from '../../components/ThemedActivityIndicator'
 
 const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { register, authError, setAuthError } = useUser()
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     await register(email, password)
+    setIsSubmitting(false)
   }
 
   useFocusEffect(
@@ -32,7 +36,7 @@ const Register = () => {
 
   return (
     <KeyboardScreen contentContainerClassName="items-center justify-center">
-      <Spacer className="h-3"/>
+      <Spacer className="h-5"/>
       <ThemedLogo/>
       <ThemedText variant="subtitle">
         Welcome to Circle U!
@@ -106,7 +110,14 @@ const Register = () => {
         themed={false}
         className="max-w-80 w-80"
         onPress={handleSubmit}
+        disabled={isSubmitting}
       />
+
+      <Spacer className="h-3"/>
+      {isSubmitting
+        ? <ThemedActivityIndicator/>
+        : <Spacer/>
+      }
       <Spacer className="h-3"/>
     </KeyboardScreen>
   )

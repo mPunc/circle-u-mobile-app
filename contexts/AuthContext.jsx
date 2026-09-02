@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null)
   const [authError, setAuthError] = useState({type: null, message: ""})
+  const [authChecked, setAuthChecked] = useState(false)
 
   async function register(email, password) {
     try {
@@ -25,7 +26,6 @@ export function UserProvider({ children }) {
     try {
       setAuthError({type: null, message: ""})
       await signInWithEmailAndPassword(auth, email, password)
-      console.log(user)
     } catch (error) {
       if (error.code === "auth/invalid-email") setAuthError({type: "email", message: "Please enter a valid email address."})
       else if (error.code === "auth/missing-password") setAuthError({type: "password", message: "Please enter password."})
@@ -44,14 +44,14 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("AUTH STATE:", user?.email ?? "no user")
       setUser(user)
+      setAuthChecked(true)
     })
     return unsubscribe
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, authError, setAuthError }}>
+    <AuthContext.Provider value={{ user, register, login, logout, authError, setAuthError, authChecked }}>
       {children}
     </AuthContext.Provider>
   )
