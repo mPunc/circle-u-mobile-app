@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { auth } from '../lib/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { createProfile } from '../services/profileService'
 
 export const AuthContext = createContext()
 
@@ -12,7 +13,8 @@ export function UserProvider({ children }) {
   async function register(email, password) {
     try {
       setAuthError({type: null, message: ""})
-      await createUserWithEmailAndPassword(auth, email, password)
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      await createProfile(userCredential.user.uid, {email: userCredential.user.email})
     } catch (error) {
       if (error.code === "auth/invalid-email") setAuthError({type: "email", message: "Please enter a valid email address."})
       else if (error.code === "auth/email-already-in-use") setAuthError({type: "email", message: "Email already in use."})
