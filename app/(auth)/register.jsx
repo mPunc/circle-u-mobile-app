@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import { useState, useCallback } from 'react'
 import { useUser } from '../../hooks/useUser'
-import { useFocusEffect } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
@@ -22,8 +22,11 @@ const Register = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-    await register(email, password)
+    const success = await register(email, password)
     setIsSubmitting(false)
+    if (success) {
+      router.replace("/(dashboard)/profile")
+    }
   }
 
   useFocusEffect(

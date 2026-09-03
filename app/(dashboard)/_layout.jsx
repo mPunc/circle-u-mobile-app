@@ -2,12 +2,14 @@ import { Tabs } from 'expo-router'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { useColorScheme } from 'nativewind'
 import { Colors } from '../../constants/Colors'
+import { ProfileProvider } from '../../contexts/ProfileContext'
 
 const DashboardLayout = () => {
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme] ?? Colors.light
 
   return (
+    <ProfileProvider>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -93,6 +95,7 @@ const DashboardLayout = () => {
         }}
       />
     </Tabs>
+    </ProfileProvider>
   )
 }
 

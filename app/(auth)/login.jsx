@@ -21,8 +21,11 @@ const Login = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-    await login(email, password)
+    const success = await login(email, password)
     setIsSubmitting(false)
+    if (success) {
+      router.replace("/(dashboard)/events")
+    }
   }
 
   useFocusEffect(
