@@ -3,10 +3,12 @@ import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { useColorScheme } from 'nativewind'
 import { Colors } from '../../constants/Colors'
 import { ProfileProvider } from '../../contexts/ProfileContext'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const DashboardLayout = () => {
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme] ?? Colors.light
+  const insets = useSafeAreaInsets()
 
   return (
     <ProfileProvider>
@@ -14,18 +16,22 @@ const DashboardLayout = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          paddingTop: 10,
-          /*height: 70,*/
-          backgroundColor: theme.surface
+          backgroundColor: theme.surface,
+          height: insets.bottom + 55,
+          borderTopColor: theme.surface,
         },
+        tabBarLabelStyle: {
+          fontSize: 11
+        },
+        tabBarActiveBackgroundColor: theme.surface,
+        tabBarInactiveBackgroundColor: theme.surface,
         tabBarActiveTintColor: theme.icon,
         tabBarInactiveTintColor: theme.iconInactive,
         tabBarBadgeStyle: {
           backgroundColor: Colors.danger,
           color: Colors.primaryLight
         },
-        /*tabBarShowLabel: false,*/
-        /*tabBarActiveBackgroundColor: Colors.primary */
+        tabBarHideOnKeyboard: true
       }}
     >
       <Tabs.Screen

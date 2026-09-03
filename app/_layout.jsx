@@ -1,3 +1,4 @@
+import { SafeAreaProvider} from 'react-native-safe-area-context'
 import { UserProvider } from '../contexts/AuthContext'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -8,9 +9,11 @@ import LoadingScreen from '../components/screen-wrappers/LoadingScreen'
 
 const RootLayout = () => {
   return (
-    <UserProvider>
-      <RootNavigation/>
-    </UserProvider>
+    <SafeAreaProvider>
+      <UserProvider>
+        <RootNavigation/>
+      </UserProvider>
+    </SafeAreaProvider>
   )
 }
 

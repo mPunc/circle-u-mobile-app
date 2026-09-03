@@ -14,7 +14,7 @@ export function ProfileProvider({ children }) {
     setProfile(data)
   }
   useEffect(() => {
-    if (user) {
+    if (!!user) {
       loadProfile(user.uid)
     } else {
       setProfile(null)

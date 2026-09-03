@@ -1,7 +1,5 @@
 import { router } from 'expo-router'
 import { useColorScheme } from 'nativewind'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useUser } from '../hooks/useUser'
 
 // themed components
 import ThemedView from '../components/ThemedView'
@@ -11,14 +9,6 @@ import Spacer from '../components/Spacer'
 
 const Home = () => {
   const { colorScheme, setColorScheme } = useColorScheme()
-
-  const { logout } = useUser()
-
-  
-
-  // const insets = useSafeAreaInsets()
-  // Log the safe area insets to the console
-  // console.log(insets);
 
   return (
     <ThemedView className="flex-1 items-center justify-center" safeArea>
