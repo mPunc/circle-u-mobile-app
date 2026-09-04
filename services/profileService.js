@@ -1,6 +1,7 @@
 import { db } from '../lib/firebase'
 import { doc, setDoc, getDoc,      collection, addDoc } from 'firebase/firestore'
 
+// used in AuthContext
 export async function createProfile(uid, data) {
   try {
     const docRef = doc(db, "profiles", uid)
@@ -10,6 +11,7 @@ export async function createProfile(uid, data) {
   }
 }
 
+// used in ProfileContext
 export async function getProfile(uid) {
   try {
     const docRef = doc(db, "profiles", uid)

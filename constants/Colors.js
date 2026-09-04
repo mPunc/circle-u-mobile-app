@@ -6,7 +6,7 @@ const Colors = {
   primaryAccent: "#4DF0FF",
   neutralText: "#71717A",
 
-  danger: "#ff1c1c",
+  danger: "#f13636",
   dangerLight: "#ffbaba",
   success: "#4ea35e",
   successLight: "#C8E6C9",
