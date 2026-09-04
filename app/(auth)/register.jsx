@@ -5,7 +5,6 @@ import { router, useFocusEffect } from 'expo-router'
 
 // themed components
 import KeyboardScreen from '../../components/screen-wrappers/KeyboardScreen'
-import ThemedView from '../../components/ThemedView'
 import ThemedLogo from '../../components/ThemedLogo'
 import ThemedText from '../../components/ThemedText'
 import InputWithLabel from '../../components/wrappers/InputWithLabel'
@@ -22,6 +21,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
+    // add input validation, make validation.js
     const success = await register(email, password)
     setIsSubmitting(false)
     if (success) {
@@ -49,23 +49,6 @@ const Register = () => {
       </ThemedText>
 
       <Spacer/>
-
-      <ThemedView className="flex-initial flex-row w-80 gap-2">
-        <InputWithLabel
-          label="First Name:"
-          autoCapitalize="words"
-          autoComplete="given-name"
-          className="border-lightIconInactive dark:border-darkIconInactive focus:border-primary"
-        />
-        <InputWithLabel
-          label="Last Name:"
-          autoCapitalize="words"
-          autoComplete="family-name"
-          className="border-lightIconInactive dark:border-darkIconInactive focus:border-primary"
-        />
-      </ThemedView>
-
-      <Spacer className="h-5"/>
 
       <InputWithLabel
         label="Email:"

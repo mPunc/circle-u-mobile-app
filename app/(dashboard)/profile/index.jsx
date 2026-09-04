@@ -1,15 +1,15 @@
-import { useUser } from '../../hooks/useUser'
-import { useProfile } from '../../hooks/useProfile'
+import { useUser } from '../../../hooks/useUser'
+import { useProfile } from '../../../hooks/useProfile'
 import { router } from 'expo-router'
 import { View } from 'react-native'
 
 // themed components
-import ThemedView from '../../components/ThemedView'
-import Spacer from '../../components/Spacer'
-import ThemedButton from '../../components/ThemedButton'
-import ValueWithLabel from '../../components/wrappers/ValueWithLabel'
-import ThemedScrollView from '../../components/ThemedScrollView'
-import Avatar from '../../components/Avatar'
+import ThemedView from '../../../components/ThemedView'
+import Spacer from '../../../components/Spacer'
+import ThemedButton from '../../../components/ThemedButton'
+import ValueWithLabel from '../../../components/wrappers/ValueWithLabel'
+import ThemedScrollView from '../../../components/ThemedScrollView'
+import Avatar from '../../../components/Avatar'
 
 const Profile = () => {
   const { logout } = useUser()
@@ -38,16 +38,16 @@ const Profile = () => {
 
         <View className="flex-col items-start justify-center w-80 gap-4">
           <ValueWithLabel
+            label="Email:"
+            value={profile?.email ?? "no email"}
+          />
+          <ValueWithLabel
             label="Username:"
             value={profile?.username ?? ""}
           />
           <ValueWithLabel
             label="Display name:"
             value={profile?.displayName ?? ""}
-          />
-          <ValueWithLabel
-            label="Email:"
-            value={profile?.email ?? "no email"}
           />
         </View>
       </View>
@@ -56,6 +56,7 @@ const Profile = () => {
 
       <ThemedButton
         label="Edit Profile"
+        onPress={() => router.push("/(dashboard)/profile/edit")}
         className="w-48"
       />
 
