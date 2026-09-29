@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { useUser } from '../hooks/useUser'
-import { getProfileAsync, editProfileAsync } from '../services/profileService'
+import { loadProfileAsync, editProfileAsync } from '../services/profileService'
 
 export const ProfileContext = createContext()
 
@@ -24,7 +24,7 @@ export function ProfileProvider({ children }) {
 
   // loads profile whenever the user changes (logs in or out)
   async function loadProfile(uid) {
-    const data = await getProfileAsync(uid)
+    const data = await loadProfileAsync(uid)
     setProfile(data)
   }
   useEffect(() => {

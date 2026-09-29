@@ -33,6 +33,7 @@ const DashboardLayout = () => {
         },
         tabBarHideOnKeyboard: true
       }}
+      backBehavior="none"
     >
       <Tabs.Screen
         name="chats"

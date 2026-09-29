@@ -12,7 +12,7 @@ export async function createProfileAsync(uid, data) {
 }
 
 // used in ProfileContext
-export async function getProfileAsync(uid) {
+export async function loadProfileAsync(uid) {
   try {
     const docRef = doc(db, "profiles", uid)
     const docSnap = await getDoc(docRef)

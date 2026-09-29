@@ -20,7 +20,7 @@ export function UserProvider({ children }) {
       if (error.code === "auth/invalid-email") setAuthError({type: "email", message: "Please enter a valid email address."})
       else if (error.code === "auth/email-already-in-use") setAuthError({type: "email", message: "Email already in use."})
       else if (error.code === "auth/missing-password") setAuthError({type: "password", message: "Please enter password."})
-      else if (error.code === "auth/weak-password") setAuthError({type: "password", message: "Password should be at least 6 characters."})
+      else if (error.code === "auth/weak-password") setAuthError({type: "password", message: "Password must be at least 6 characters."})
       else setAuthError({type: "generic", message: "Something went wrong. Please try again."})
       return false
     }
