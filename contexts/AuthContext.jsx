@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { auth } from '../lib/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from 'firebase/auth'
 import { createProfileAsync } from '../services/profileService'
 
 export const AuthContext = createContext()
@@ -9,20 +9,33 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null)
   const [authError, setAuthError] = useState({type: null, message: ""})
   const [authChecked, setAuthChecked] = useState(false)
+  const [processingAuth, setProcessingAuth] = useState(false) // makes sure we don't get redirected if registration succeeds but the profile creation fails
 
-  async function register(email, password) {
+  async function register(email, password, username) {
     try {
+      setProcessingAuth(true)
       setAuthError({type: null, message: ""})
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      await createProfileAsync(userCredential.user.uid, {email: userCredential.user.email})
+      try {
+        await createProfileAsync(userCredential.user.uid, {
+          email: userCredential.user.email,
+          username: username
+        })
+      } catch (error) {
+        await deleteUser(userCredential.user)
+        throw error
+      }
       return true
     } catch (error) {
       if (error.code === "auth/invalid-email") setAuthError({type: "email", message: "Please enter a valid email address."})
       else if (error.code === "auth/email-already-in-use") setAuthError({type: "email", message: "Email already in use."})
       else if (error.code === "auth/missing-password") setAuthError({type: "password", message: "Please enter password."})
       else if (error.code === "auth/weak-password") setAuthError({type: "password", message: "Password must be at least 6 characters."})
+      else if (error.code === "username-error") setAuthError({type: "username", message: error.message})
       else setAuthError({type: "generic", message: "Something went wrong. Please try again."})
       return false
+    } finally {
+      setProcessingAuth(false)
     }
   }
 
@@ -59,7 +72,7 @@ export function UserProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, authError, setAuthError, authChecked }}>
+    <AuthContext.Provider value={{ user, register, login, logout, authError, setAuthError, authChecked, processingAuth }}>
       {children}
     </AuthContext.Provider>
   )

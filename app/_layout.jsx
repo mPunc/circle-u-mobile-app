@@ -18,7 +18,7 @@ const RootLayout = () => {
 }
 
 const RootNavigation = () => {
-  const { user, authChecked } = useUser()
+  const { user, authChecked, processingAuth } = useUser()
 
   if (!authChecked) {
     return <LoadingScreen />
@@ -30,7 +30,7 @@ const RootNavigation = () => {
       <Stack screenOptions={{ headerShown: false, animation: 'none' }} >
         <Stack.Screen name="index" />
 
-        <Stack.Protected guard={!user} >
+        <Stack.Protected guard={!user || processingAuth} >
           <Stack.Screen name="(auth)" />
         </Stack.Protected>
 

@@ -45,7 +45,7 @@ const Register = () => {
     }
     // input validation passed
     setIsSubmitting(true)
-    const success = await register(email.trim(), password) // add username here
+    const success = await register(email.trim(), password, username.trim()) // add username here
     setIsSubmitting(false)
     if (success) router.replace("/(dashboard)/profile")
   }
