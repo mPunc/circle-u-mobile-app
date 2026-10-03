@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import { useState, useCallback } from 'react'
 import { useUser } from '../../hooks/useUser'
+import { validateEmail, validatePassword } from '../../utils/validation'
 import { router, useFocusEffect } from 'expo-router'
 
 // themed components
@@ -20,12 +21,22 @@ const Login = () => {
   const { login, authError, setAuthError } = useUser()
 
   const handleSubmit = async () => {
-    setIsSubmitting(true)
-    const success = await login(email, password)
-    setIsSubmitting(false)
-    if (success) {
-      router.replace("/(dashboard)/events")
+    // input validation
+    const emailError = validateEmail(email)
+    if (emailError) {
+      setAuthError({type: "email", message: emailError})
+      return
     }
+    const passwordError = validatePassword(password)
+    if (passwordError) {
+      setAuthError({type: "password", message: passwordError})
+      return
+    }
+    // input validation passed
+    setIsSubmitting(true)
+    const success = await login(email.trim(), password)
+    setIsSubmitting(false)
+    if (success) router.replace("/(dashboard)/events")
   }
 
   useFocusEffect(

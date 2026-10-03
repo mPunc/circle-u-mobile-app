@@ -1,5 +1,5 @@
 import { db } from '../lib/firebase'
-import { doc, setDoc, getDoc, updateDoc, runTransaction,     collection, addDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, runTransaction,    setDoc, collection, addDoc } from 'firebase/firestore'
 
 /**
  * used in AuthContext, creates a "profiles" doc in Firestore, checks if username is claimed in Firestore, then claims it if not, using a transaction to ensure atomicity
@@ -44,11 +44,22 @@ export async function loadProfileAsync(uid) {
  * @param {Record<string, any>} data object with relevant fields
  */
 export async function editProfileAsync(uid, data) {
-  try {
-    const docRef = doc(db, "profiles", uid)
-    await updateDoc(docRef, data)
-  } catch (error) {
-    console.log("Error updating profile: ", error)
-    throw error
-  }
+  const profileRef = doc(db, "profiles", uid)
+  const usernameRef = doc(db, "usernames", data.username.toLowerCase())
+
+  await runTransaction(db, async (transaction) => {
+    const usernameSnap = await transaction.get(usernameRef)
+    if (usernameSnap.exists() && usernameSnap.get("uid") != uid) {
+      const usernameError = new Error("Username already in use.")
+      usernameError.code = "username-error"
+      throw usernameError
+    }
+    const prevUsername = (await transaction.get(profileRef)).get("username")
+    if (prevUsername.toLowerCase() !== data.username.toLowerCase()) {
+      const prevUsernameRef = doc(db, "usernames", prevUsername)
+      transaction.delete(prevUsernameRef)
+      transaction.set(usernameRef, {uid: uid})
+    }
+    transaction.update(profileRef, data)
+  })
 }

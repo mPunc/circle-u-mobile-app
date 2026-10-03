@@ -1,6 +1,7 @@
 import { useProfile } from '../../../hooks/useProfile'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { useState } from 'react'
+import { validateUsername } from '../../../utils/validation'
 import { router } from 'expo-router'
 
 // themed components
@@ -10,6 +11,7 @@ import ThemedButton from '../../../components/ThemedButton'
 import Avatar from '../../../components/Avatar'
 import InputWithLabel from '../../../components/wrappers/InputWithLabel'
 import ThemedActivityIndicator from '../../../components/ThemedActivityIndicator'
+import { type } from 'firebase/firestore/pipelines'
 
 const EditProfile = () => {
   const { profile, editProfile } = useProfile()
@@ -17,16 +19,29 @@ const EditProfile = () => {
   const [username, setUsername] = useState(profile?.username ?? "")
   const [displayName, setDisplayName] = useState(profile?.displayName ?? "")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [validationError, setValidationError] = useState({type: null, message: ""})
 
   const handleSubmit = async () => {
+    setValidationError({type: null, message: ""})
+    // input validation
+    const usernameError = validateUsername(username)
+    if (usernameError) {
+      setValidationError({type: "username", message: usernameError})
+      return
+    }
+    // input validation passed
     setIsSubmitting(true)
-    const success = await editProfile({
-      username: username.trim().toLowerCase(),
-      displayName: displayName.trim()
-    })
-    setIsSubmitting(false)
-    if (success) {
+    try {
+      await editProfile({
+        username: username.trim(),
+        displayName: displayName.trim()
+      })
       router.replace("/(dashboard)/profile")
+    } catch (error) {
+      if (error.code === "username-error") setValidationError({type: "username", message: error.message})
+      else setValidationError({type: "generic", message: "Something went wrong. Please try again."})
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -39,21 +54,45 @@ const EditProfile = () => {
 
         <Spacer className="h-4"/>
 
-        <View className="flex-col items-start justify-center w-80 gap-4">
+        <View className="flex-col items-start justify-center w-80">
           <InputWithLabel
             label="Username:"
-            value={username}
+            placeholder="new username"
+            autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={setUsername}
+            value={username}
+            className={validationError.type === "username"
+              ? "border-danger dark:border-danger focus:border-dangerLight"
+              : "border-lightIconInactive dark:border-darkIconInactive focus:border-primary"
+            }
           />
+
+          {validationError.type === "username" ? (
+          <View className="flex-initial flex-wrap w-80 items-start justify-center mt-1">
+            <Text className="text-danger">{validationError.message}</Text>
+          </View>
+          ) : (<Spacer className="h-3"/>)}
+
           <InputWithLabel
             label="Display name:"
-            value={displayName}
+            placeholder="display name"
+            autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={setDisplayName}
+            value={displayName}
+            className="border-lightIconInactive dark:border-darkIconInactive focus:border-primary"
           />
         </View>
       </View>
 
-      <Spacer/>
+      {validationError.type === "generic" ? (
+      <View className="flex-initial flex-wrap w-80 items-start justify-center mt-1">
+        <Text className="text-danger">{validationError.message}</Text>
+      </View>
+      ) : (<Spacer className="h-6"/>)}
+
+      <Spacer className="h-3"/>
 
       <ThemedButton
         label="Save Changes"

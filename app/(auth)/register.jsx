@@ -107,7 +107,7 @@ const Register = () => {
       />
 
       {authError.type === "email" ? (
-      <View className="flex-initial w-80 items-start justify-center mt-1">
+      <View className="flex-initial flex-wrap w-80 items-start justify-center mt-1">
         <Text className="text-danger">{authError.message}</Text>
       </View>
       ) : (<Spacer className="h-3"/>)}
@@ -127,7 +127,7 @@ const Register = () => {
       />
 
       {(authError.type === "password") ? (
-      <View className="flex-initial w-80 items-start justify-center mt-1">
+      <View className="flex-initial flex-wrap w-80 items-start justify-center mt-1">
         <Text className="text-danger">{authError.message}</Text>
       </View>
       ) : (<Spacer className="h-3"/>)}
@@ -147,7 +147,7 @@ const Register = () => {
       />
 
       {(authError.type === "passwordRepeat" || authError.type === "generic") ? (
-      <View className="flex-initial w-80 items-start justify-center mt-1">
+      <View className="flex-initial flex-wrap w-80 items-start justify-center mt-1">
         <Text className="text-danger h-6">{authError.message}</Text>
       </View>
       ) : (<Spacer className="h-3"/>)}
