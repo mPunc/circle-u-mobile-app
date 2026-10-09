@@ -1,5 +1,5 @@
 import { db } from '../lib/firebase'
-import { doc, getDoc, updateDoc, runTransaction,    setDoc, collection, addDoc } from 'firebase/firestore'
+import { doc, getDoc, runTransaction } from 'firebase/firestore'
 
 /**
  * used in AuthContext, creates a "profiles" doc in Firestore, checks if username is claimed in Firestore, then claims it if not, using a transaction to ensure atomicity

@@ -28,8 +28,6 @@ const RootNavigation = () => {
     <>
       <StatusBar style="auto" />
       <Stack screenOptions={{ headerShown: false, animation: 'none' }} >
-        <Stack.Screen name="index" />
-
         <Stack.Protected guard={!user || processingAuth} >
           <Stack.Screen name="(auth)" />
         </Stack.Protected>

@@ -3,10 +3,10 @@
     "scheme": "circle-u-mobile-app",
     "name": "circle-u-mobile-app",
     "slug": "circle-u-mobile-app",
-    "version": "0.0.1",
+    "version": "0.2",
     "orientation": "portrait",
     "icon": "./assets/img/logo.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "experiments": {
       "typedRoutes": true
     },
