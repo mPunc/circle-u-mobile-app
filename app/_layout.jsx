@@ -20,9 +20,7 @@ const RootLayout = () => {
 const RootNavigation = () => {
   const { user, authChecked, processingAuth } = useUser()
 
-  if (!authChecked) {
-    return <LoadingScreen />
-  }
+  if (!authChecked) return <LoadingScreen/>
 
   return (
     <>
