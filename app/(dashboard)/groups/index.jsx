@@ -1,7 +1,7 @@
 import { useUser } from '../../../hooks/useUser'
 import { useProfile } from '../../../hooks/useProfile'
 import { router } from 'expo-router'
-import { getGroupsForUserAsync } from '../../../services/groupsService'
+import { getGroupsByUserAsync } from '../../../services/groupsService'
 import { useState } from 'react'
 import { FlatList, View, Pressable } from 'react-native'
 
@@ -19,9 +19,8 @@ const Groups = () => {
   const [ groups, setGroups ] = useState([])
 
   const handleLoad = async () => {
-    const g = await getGroupsForUserAsync(user.uid)
+    const g = await getGroupsByUserAsync(user.uid)
     setGroups(g)
-    console.log(g)
   }
 
   return (

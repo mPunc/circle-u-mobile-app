@@ -21,7 +21,6 @@ const CreateGroup = () => {
     if (!groupName) return
     setIsSubmitting(true)
     try {
-      console.log(user.uid, groupName)
       await createGroupAsync(user.uid, groupName)
       router.replace("/(dashboard)/groups")
     } catch (error) {

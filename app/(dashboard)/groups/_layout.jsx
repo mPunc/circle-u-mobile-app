@@ -16,6 +16,13 @@ const GroupsLayout = () => {
           headerShown: false
         }}
       />
+
+      <Stack.Screen
+        name="[id]"
+        options={{
+          headerShown: false
+        }}
+      />
     </Stack>
   )
 }
