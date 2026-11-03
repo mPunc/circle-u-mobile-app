@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { useState, useEffect } from 'react'
 import { addMembersToGroupAsync, getGroupByIdAsync, searchForMembersByUsername } from '../../../services/groupsService'
 
-import { View, Modal, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Pressable, FlatList } from 'react-native'
+import { View, Modal, TextInput, KeyboardAvoidingView, Pressable, FlatList, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../../constants/Colors'
@@ -23,12 +23,20 @@ const GroupWithId = () => {
 
   // adding members
   const [membersModal, setMembersModal] = useState(false)
-  const [tagetUsername, setTargetUsername] = useState("")
+  const [targetUsername, setTargetUsername] = useState("")
   const [foundMembers, setFoundMembers] = useState(new Array())
   const [membersToAdd, setMembersToAdd] = useState(new Array())
   const handleSearch = async () => {
-    const found = await searchForMembersByUsername(tagetUsername, groupData.members)
-    if (found !== null) setFoundMembers(found)
+    if (targetUsername.trim().length !== 0) {
+      const found = await searchForMembersByUsername(targetUsername, groupData.members)
+      setFoundMembers(found ?? [])
+    }
+  }
+  const resetMembersModal = () => {
+    setMembersModal(false)
+    setTargetUsername("")
+    setFoundMembers([])
+    setMembersToAdd([])
   }
   const handleAddMember = (uid) => {
     setMembersToAdd((prev) =>
@@ -38,16 +46,17 @@ const GroupWithId = () => {
     )
   }
   const handleModalSubmit = async () => {
-    const success = await addMembersToGroupAsync(groupId, membersToAdd)
-    if (success) {
-      setMembersModal(false)
-      setTargetUsername("")
-      setFoundMembers(new Array())
-      setMembersToAdd(new Array())
+    if (membersToAdd.length !== 0) {
+      const success = await addMembersToGroupAsync(groupId, membersToAdd)
+      if (success) {
+        resetMembersModal()
+        loadGroupData()
+      }
     }
   }
 
   async function loadGroupData() {
+    // error handling ?
     const response = await getGroupByIdAsync(groupId)
     setGroupData(response)
   }
@@ -55,12 +64,15 @@ const GroupWithId = () => {
     loadGroupData()
   }, [groupId])
 
-  // loading screen if data not yet loaded
+  // loading screen if data not yet loaded, needs better error handling
   if(!groupData) return <LoadingScreen/>
 
   return (
     <ThemedView className="flex-1" safeArea>
-    <KeyboardAvoidingView className="flex-1 items-center justify-center">
+    <KeyboardAvoidingView
+      className="flex-1 items-center justify-center"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <ThemedText variant="subtitle">{groupData.name}</ThemedText>
       <Spacer/>
       <ThemedText variant="large">{groupData.createdBy}</ThemedText>
@@ -79,17 +91,17 @@ const GroupWithId = () => {
         visible={membersModal}
         transparent
         animationType="fade"
-        onRequestClose={() => setMembersModal(false)}
+        onRequestClose={resetMembersModal}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView className="flex-1 justify-end bg-black/30">
-        <Pressable className="h-full w-full" onPress={() => setMembersModal(false)}/>
+        <SafeAreaView className="flex-1 justify-end">
+        <Pressable className="absolute inset-0 bg-black/30" onPress={resetMembersModal}/>
         <KeyboardAvoidingView
           className="
             h-[360px] rounded-t-3xl border-t-2 border-lightIcon dark:border-darkIcon
             bg-lightBackground dark:bg-darkBackground px-5 pt-6
             justify-between
           "
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <View className="rounded-full flex-row items-center justify-start bg-lightSurface dark:bg-darkSurface h-12">
             <Pressable
@@ -107,7 +119,7 @@ const GroupWithId = () => {
               placeholderTextColor={Colors.neutralText}
               className="text-lightText dark:text-darkText text-lg px-1 py-3 w-full"
               onChangeText={setTargetUsername}
-              value={tagetUsername}
+              value={targetUsername}
               onSubmitEditing={handleSearch}
               returnKeyType="search"
             />
@@ -136,10 +148,10 @@ const GroupWithId = () => {
             label="Add selected"
             className="justify-self-end self-center"
             onPress={handleModalSubmit}
+            disabled={membersToAdd.length === 0}
           />
         </KeyboardAvoidingView>
         </SafeAreaView>
-        </TouchableWithoutFeedback>
       </Modal>
 
       
