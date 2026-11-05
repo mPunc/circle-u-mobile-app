@@ -10,6 +10,7 @@ import ThemedText from '../../../components/ThemedText'
 import Spacer from '../../../components/Spacer'
 import ThemedButton from '../../../components/ThemedButton'
 import ThemedView from '../../../components/ThemedView'
+import ThemedConversationList from '../../../components/wrappers/ThemedConversationList'
 
 
 const Groups = () => {
@@ -48,6 +49,7 @@ const Groups = () => {
 
       <Spacer/>
 
+      {/** ok to delete this: */}
       <FlatList
         className="w-full"
         data={groups}
@@ -61,6 +63,12 @@ const Groups = () => {
             </View>
           </Pressable>
         )}
+      />
+
+      <ThemedConversationList
+        data={groups}
+        onItemPress={(item) => router.push(`/(dashboard)/groups/${item.id}`)}
+        type="group"
       />
 
     </ThemedView>

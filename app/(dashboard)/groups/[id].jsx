@@ -14,6 +14,7 @@ import ThemedView from '../../../components/ThemedView'
 import Spacer from '../../../components/Spacer'
 import LoadingScreen from '../../../components/screen-wrappers/LoadingScreen'
 import ThemedButton from '../../../components/ThemedButton'
+import ThemedConversationList from '../../../components/wrappers/ThemedConversationList'
 
 const GroupWithId = () => {
   const { id: groupId } = useLocalSearchParams()
@@ -135,13 +136,21 @@ const GroupWithId = () => {
                 <Pressable
                   onPress={() => handleAddMember(item.uid)}
                   className={`w-full h-14 justify-center items-center border-b-2 border-neutralText active:bg-neutralText
-                  ${isSelected ? "bg-lightAccent dark:darkAccent" : "bg-lightSurface dark:bg-darkSurface"}`}
+                  ${isSelected ? "bg-lightAccent dark:bg-darkAccent" : "bg-lightSurface dark:bg-darkSurface"}`}
                 >
                   <ThemedText variant="large">
                     {item.username}
                   </ThemedText>
                 </Pressable>
               )}}
+          />
+
+          <ThemedConversationList
+            data={foundMembers}
+            onItemPress={(item) => handleAddMember(item.uid)}
+            type="dm"
+            rowHeight="h-16"
+            selectableRows={true}
           />
 
           <ThemedButton
