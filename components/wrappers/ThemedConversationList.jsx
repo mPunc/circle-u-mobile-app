@@ -1,5 +1,5 @@
-import { FlatList, Pressable } from 'react-native'
-import ThemedText from '../ThemedText'
+import { FlatList } from 'react-native'
+import ThemedConversationListItem from './ThemedConversationListItem'
 
 /**
  * @typedef {Object} ConversationData
@@ -15,34 +15,39 @@ import ThemedText from '../ThemedText'
  * @param {(item: ConversationData) => string} [props.keyExtractor=(item) => item.id] - FlatList keyExtractor override if needed
  * @param {(item: ConversationData) => void} props.onItemPress - Callback when an item is pressed
  * @param {"group" | "dm"} props.type - Conversation type, affects displayed data and default styling
- * @param {string} [props.rowHeight="h-20"] - "h-20" by default, appends string to each row's parent element's className
- * @param {boolean} [props.selectableRows="false"] - set true to enable selectable list rows
+ * @param {string} [props.className = ""]
+ * @param {string} [props.rowHeight = "h-20"] - "h-20" by default, appends string to each row's parent element's className
+ * @param {boolean} [props.selectMultiRows = "false"] - set true to enable selectable list rows
+ * @param {(item: ConversationData) => boolean} [props.selectedCondition = () => false]
  */
-const ThemedConversationList = ({ data, keyExtractor = (item) => item.id ?? item.uid, onItemPress, type, rowHeight = "h-20", selectableRows = false }) => {
+const ThemedConversationList = ({
+  data,
+  keyExtractor = (item) => item.id ?? item.uid,
+  onItemPress,
+  type,
+  className = "",
+  rowHeight = "h-20",
+  selectMultiRows = false,
+  selectedCondition = () => false
+}) => {
   return (
     <FlatList
       data={data}
       keyExtractor={keyExtractor}
-      className="w-full"
+      className={`w-full ${className}`}
       renderItem={({ item }) => {
         let conversationName = ""
         if (type === "group") conversationName = item.name ?? ""
         else if (type === "dm") conversationName = item.username ?? ""
 
         return (
-          <Pressable
+          <ThemedConversationListItem
             onPress={() => onItemPress(item)}
-            className={`
-              border-t border-neutralText
-              bg-lightSurface dark:bg-darkSurface
-              justify-center items-center
-              ${rowHeight}
-            `}
-          >
-            <ThemedText variant="large">
-              {conversationName}
-            </ThemedText>
-          </Pressable>
+            rowHeight={rowHeight}
+            conversationName={conversationName}
+            selectableRows={selectMultiRows}
+            selectedCondition={() => selectedCondition(item)}
+          />
         )
       }}
     />

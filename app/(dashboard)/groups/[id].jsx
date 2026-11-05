@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { useState, useEffect } from 'react'
 import { addMembersToGroupAsync, getGroupByIdAsync, searchForMembersByUsername } from '../../../services/groupsService'
 
-import { View, Modal, TextInput, KeyboardAvoidingView, Pressable, FlatList, Platform } from 'react-native'
+import { View, Modal, TextInput, KeyboardAvoidingView, Pressable, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../../constants/Colors'
@@ -126,31 +126,14 @@ const GroupWithId = () => {
             />
           </View>
 
-          <FlatList
-            className="w-full mt-2"
-            data={foundMembers}
-            keyExtractor={(item) => item.uid}
-            renderItem={({ item }) => {
-              const isSelected = membersToAdd.includes(item.uid)
-              return (
-                <Pressable
-                  onPress={() => handleAddMember(item.uid)}
-                  className={`w-full h-14 justify-center items-center border-b-2 border-neutralText active:bg-neutralText
-                  ${isSelected ? "bg-lightAccent dark:bg-darkAccent" : "bg-lightSurface dark:bg-darkSurface"}`}
-                >
-                  <ThemedText variant="large">
-                    {item.username}
-                  </ThemedText>
-                </Pressable>
-              )}}
-          />
-
           <ThemedConversationList
             data={foundMembers}
             onItemPress={(item) => handleAddMember(item.uid)}
             type="dm"
-            rowHeight="h-16"
-            selectableRows={true}
+            className="mt-2"
+            rowHeight="h-14"
+            selectMultiRows={true}
+            selectedCondition={(item) => membersToAdd.includes(item.uid)}
           />
 
           <ThemedButton

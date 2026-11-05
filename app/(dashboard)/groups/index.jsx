@@ -3,7 +3,6 @@ import { useProfile } from '../../../hooks/useProfile'
 import { router } from 'expo-router'
 import { getGroupsByUserAsync } from '../../../services/groupsService'
 import { useState } from 'react'
-import { FlatList, View, Pressable } from 'react-native'
 
 // themed components
 import ThemedText from '../../../components/ThemedText'
@@ -48,22 +47,6 @@ const Groups = () => {
       />
 
       <Spacer/>
-
-      {/** ok to delete this: */}
-      <FlatList
-        className="w-full"
-        data={groups}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/(dashboard)/groups/${item.id}`)}>
-            <View className="bg-lightSurface dark:bg-darkSurface w-full border-t border-neutralText h-20">
-              <ThemedText variant="large">
-                {item.name}
-              </ThemedText>
-            </View>
-          </Pressable>
-        )}
-      />
 
       <ThemedConversationList
         data={groups}
