@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, router } from 'expo-router'
 import { useState, useEffect } from 'react'
 import { addMembersToGroupAsync, getGroupByIdAsync, searchForMembersByUsername } from '../../../services/groupsService'
 
@@ -19,10 +19,12 @@ import ThemedConversationList from '../../../components/wrappers/ThemedConversat
 const GroupWithId = () => {
   const { id: groupId } = useLocalSearchParams()
   const [groupData, setGroupData] = useState(null)
-  const { colorScheme } = useColorScheme()
-  const theme = Colors[colorScheme] ?? Colors.light
 
-  // adding members
+  // for modal
+  const { colorScheme } = useColorScheme()
+  const theme = Colors[colorScheme ?? "light"]
+
+  // adding members, also for modal
   const [membersModal, setMembersModal] = useState(false)
   const [targetUsername, setTargetUsername] = useState("")
   const [foundMembers, setFoundMembers] = useState(new Array())
@@ -39,6 +41,7 @@ const GroupWithId = () => {
     setFoundMembers([])
     setMembersToAdd([])
   }
+  /**@param {string} uid*/
   const handleAddMember = (uid) => {
     setMembersToAdd((prev) =>
       prev.includes(uid)
@@ -57,9 +60,9 @@ const GroupWithId = () => {
   }
 
   async function loadGroupData() {
-    // error handling ?
     const response = await getGroupByIdAsync(groupId)
-    setGroupData(response)
+    if (response !== null) setGroupData(response)
+    else router.back()
   }
   useEffect(() => {
     loadGroupData()

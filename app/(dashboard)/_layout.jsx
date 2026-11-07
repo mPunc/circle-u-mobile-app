@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const DashboardLayout = () => {
   const { colorScheme } = useColorScheme()
-  const theme = Colors[colorScheme] ?? Colors.light
+  const theme = Colors[colorScheme ?? "light"]
   const insets = useSafeAreaInsets()
 
   return (

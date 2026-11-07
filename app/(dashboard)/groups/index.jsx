@@ -16,7 +16,7 @@ const Groups = () => {
   const { user } = useUser()
   const { profile } = useProfile()
 
-  const [ groups, setGroups ] = useState([])
+  const [ groups, setGroups ] = useState(new Array())
 
   const handleLoad = async () => {
     const g = await getGroupsByUserAsync(user.uid)

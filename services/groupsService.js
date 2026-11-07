@@ -1,6 +1,11 @@
 import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp, query, where, getDocs, doc, updateDoc, arrayUnion, getDoc, orderBy, startAt, endAt } from 'firebase/firestore'
 
+/**
+ * creates a group
+ * @param {string} uid 
+ * @param {string} name 
+ */
 export async function createGroupAsync(uid, name) {
   const groupColl = collection(db, "groups")
 
@@ -12,6 +17,11 @@ export async function createGroupAsync(uid, name) {
   })
 }
 
+/**
+ * fetches groups with data for current user
+ * @param {string} uid
+ * @returns {Promise<Object[]>}
+ */
 export async function getGroupsByUserAsync(uid) {
   try {
     const q = query(collection(db, "groups"), where("members", "array-contains", uid))
@@ -27,6 +37,11 @@ export async function getGroupsByUserAsync(uid) {
   return null
 }
 
+/**
+ * fetches single group data
+ * @param {string} id
+ * @returns {Promise<Object|null>}
+ */
 export async function getGroupByIdAsync(id) {
   try {
     const groupRef = doc(db, "groups", id)
@@ -66,7 +81,12 @@ export async function searchForMembersByUsername(username, exclude = []) {
   }
   return null
 }
-
+/**
+ * adds array of memberIds to target group
+ * @param {string} groupId 
+ * @param {string[]} memberIds 
+ * @returns {Promise<boolean>}
+ */
 export async function addMembersToGroupAsync(groupId, memberIds) {
   try {
     const groupRef = doc(db, "groups", groupId)
