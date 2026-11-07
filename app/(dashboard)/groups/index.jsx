@@ -1,7 +1,7 @@
 import { useUser } from '../../../hooks/useUser'
 import { useProfile } from '../../../hooks/useProfile'
 import { router } from 'expo-router'
-import { getGroupsByUserAsync } from '../../../services/groupsService'
+import { getGroupsForUserAsync } from '../../../services/groupsService'
 import { useState } from 'react'
 
 // themed components
@@ -16,10 +16,12 @@ const Groups = () => {
   const { user } = useUser()
   const { profile } = useProfile()
 
-  const [ groups, setGroups ] = useState(new Array())
+  const [ groups, setGroups ] = useState([])
 
   const handleLoad = async () => {
-    const g = await getGroupsByUserAsync(user.uid)
+    const g = await getGroupsForUserAsync(user.uid)
+    // @ts-ignore
+    // add some error handling (for null and such)
     setGroups(g)
   }
 

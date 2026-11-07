@@ -27,11 +27,12 @@ const GroupWithId = () => {
   // adding members, also for modal
   const [membersModal, setMembersModal] = useState(false)
   const [targetUsername, setTargetUsername] = useState("")
-  const [foundMembers, setFoundMembers] = useState(new Array())
-  const [membersToAdd, setMembersToAdd] = useState(new Array())
+  const [foundMembers, setFoundMembers] = useState([])
+  const [membersToAdd, setMembersToAdd] = useState([])
   const handleSearch = async () => {
     if (targetUsername.trim().length !== 0) {
-      const found = await searchForMembersByUsername(targetUsername, groupData.members)
+      const found = await searchForMembersByUsername(targetUsername.trim(), groupData.members)
+      // @ts-ignore
       setFoundMembers(found ?? [])
     }
   }
@@ -43,6 +44,7 @@ const GroupWithId = () => {
   }
   /**@param {string} uid*/
   const handleAddMember = (uid) => {
+    // @ts-ignore
     setMembersToAdd((prev) =>
       prev.includes(uid)
         ? prev.filter((id) => id !== uid)

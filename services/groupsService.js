@@ -4,13 +4,12 @@ import { addDoc, collection, serverTimestamp, query, where, getDocs, doc, update
 /**
  * creates a group
  * @param {string} uid 
- * @param {string} name 
+ * @param {string} groupName 
  */
-export async function createGroupAsync(uid, name) {
+export async function createGroupAsync(uid, groupName) {
   const groupColl = collection(db, "groups")
-
   await addDoc(groupColl, {
-    name: name,
+    name: groupName,
     createdBy: uid,
     createdAt: serverTimestamp(),
     members: [uid]
@@ -18,11 +17,11 @@ export async function createGroupAsync(uid, name) {
 }
 
 /**
- * fetches groups with data for current user
+ * fetches groups with data for user ID
  * @param {string} uid
- * @returns {Promise<Object[]>}
+ * @returns {Promise<Object[]|null>}
  */
-export async function getGroupsByUserAsync(uid) {
+export async function getGroupsForUserAsync(uid) {
   try {
     const q = query(collection(db, "groups"), where("members", "array-contains", uid))
     const qSnap = await getDocs(q)
@@ -81,6 +80,7 @@ export async function searchForMembersByUsername(username, exclude = []) {
   }
   return null
 }
+
 /**
  * adds array of memberIds to target group
  * @param {string} groupId 
