@@ -7,18 +7,12 @@ import { searchForMembersByUsername, addMembersToGroupAsync } from '../services/
  * @param {() => void | null} onSuccess
  * @param {string[] | null} [existingMembers]
  */
-const useAddMembers = (groupId, onSuccess, existingMembers = null ) => {
+const useAddMembers = (groupId, onSuccess, existingMembers = null) => {
   const [visible, setVisible] = useState(false)
   const [targetUsername, setTargetUsername] = useState("")
   const [foundMembers, setFoundMembers] = useState([])
   const [membersToAdd, setMembersToAdd] = useState([])
 
-  const reset = () => {
-    setVisible(false)
-    setTargetUsername("")
-    setFoundMembers([])
-    setMembersToAdd([])
-  }
   const handleSearch = async () => {
     if (!targetUsername.trim()) return
     const found =  await searchForMembersByUsername(targetUsername.trim(), existingMembers)
@@ -29,6 +23,7 @@ const useAddMembers = (groupId, onSuccess, existingMembers = null ) => {
   const handleSelectMember = (uid) => {
     // @ts-ignore
     setMembersToAdd(prev =>
+      // @ts-ignore
       prev.includes(uid) ? prev.filter(id => id !== uid) : [...prev, uid]
     )
   }
@@ -40,6 +35,12 @@ const useAddMembers = (groupId, onSuccess, existingMembers = null ) => {
       onSuccess?.()
     }
   }
+  const reset = () => {
+    setVisible(false)
+    setTargetUsername("")
+    setFoundMembers([])
+    setMembersToAdd([])
+  }
 
   return {
     visible,
@@ -47,11 +48,11 @@ const useAddMembers = (groupId, onSuccess, existingMembers = null ) => {
     targetUsername,
     setTargetUsername,
     foundMembers,
-    membersToAdd,
-    reset,
     handleSearch,
+    membersToAdd,
     handleSelectMember,
-    handleSubmit
+    handleSubmit,
+    reset
   }
 }
 
