@@ -2,7 +2,7 @@ import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp, query, where, getDocs, doc, updateDoc, arrayUnion, getDoc, orderBy, startAt, endAt } from 'firebase/firestore'
 
 /**
- * creates a group
+ * Creates a simple group, used in groups/create
  * @param {string} uid 
  * @param {string} groupName 
  */
@@ -17,9 +17,9 @@ export async function createGroupAsync(uid, groupName) {
 }
 
 /**
- * fetches groups with data for user ID
+ * Fetches groups with all data for user ID, used in groups/index
  * @param {string} uid
- * @returns {Promise<Object[]|null>}
+ * @returns {Promise<Object[] | null>}
  */
 export async function getGroupsForUserAsync(uid) {
   try {
@@ -37,9 +37,9 @@ export async function getGroupsForUserAsync(uid) {
 }
 
 /**
- * fetches single group data
+ * Fetches single group data by id, used in groups/[id] dynamic route
  * @param {string} id
- * @returns {Promise<Object|null>}
+ * @returns {Promise<Object | null>}
  */
 export async function getGroupByIdAsync(id) {
   try {
@@ -53,12 +53,12 @@ export async function getGroupByIdAsync(id) {
 }
 
 /**
- * used in groups to find users, returns array of {uid, username} or null, can exclude uids
- * @param {string} username 
- * @param {string[]} exclude 
- * @returns {Promise<{uid: string, username: string}[]|null>}
+ * Returns array of {uid, username} or null, can exclude uids, used in useAddMembers()
+ * @param {string} username
+ * @param {string[] | null} [exclude]
+ * @returns {Promise<{uid: string, username: string}[] | null>}
  */
-export async function searchForMembersByUsername(username, exclude = []) {
+export async function searchForMembersByUsername(username, exclude = null) {
   try {
     const q = query(
       collection(db, "profiles"),
@@ -82,7 +82,7 @@ export async function searchForMembersByUsername(username, exclude = []) {
 }
 
 /**
- * adds array of memberIds to target group
+ * Adds array of memberIds to target group, used in useAddMembers()
  * @param {string} groupId 
  * @param {string[]} memberIds 
  * @returns {Promise<boolean>}
