@@ -36,15 +36,12 @@ const ThemedConversationList = ({
       keyExtractor={keyExtractor}
       className={`w-full ${className}`}
       renderItem={({ item }) => {
-        let conversationName = ""
-        if (type === "group") conversationName = item.name ?? ""
-        else if (type === "dm") conversationName = item.username ?? ""
-
         return (
           <ThemedConversationListItem
             onPress={() => onItemPress(item)}
             rowHeight={rowHeight}
-            conversationName={conversationName}
+            item={item}
+            type={type}
             selectableRows={selectMultiRows}
             selectedCondition={() => selectedCondition(item)}
           />
