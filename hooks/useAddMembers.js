@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { searchForMembersByUsername, addMembersToGroupAsync } from '../services/groupsService'
+import { searchForMembersByUsernameAsync, addMembersToGroupAsync } from '../services/groupsService'
 
 /**
  * Returns functions and variables for searching and adding members from a modal
@@ -15,7 +15,7 @@ const useAddMembers = (groupId, onSuccess, existingMembers = null) => {
 
   const handleSearch = async () => {
     if (!targetUsername.trim()) return
-    const found =  await searchForMembersByUsername(targetUsername.trim(), existingMembers)
+    const found =  await searchForMembersByUsernameAsync(targetUsername.trim(), existingMembers)
     // @ts-ignore
     setFoundMembers(found ?? [])
   }

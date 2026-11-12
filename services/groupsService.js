@@ -58,7 +58,7 @@ export async function getGroupByIdAsync(id) {
  * @param {string[] | null} [exclude]
  * @returns {Promise<{uid: string, username: string}[] | null>}
  */
-export async function searchForMembersByUsername(username, exclude = null) {
+export async function searchForMembersByUsernameAsync(username, exclude = null) {
   try {
     const q = query(
       collection(db, "profiles"),
