@@ -49,7 +49,7 @@ const AddMembersModal = ({
         "
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View className="rounded-full flex-row items-center justify-start bg-lightSurface dark:bg-darkSurface h-12">
+        <View className="rounded-full flex-row items-center justify-start bg-lightSurface dark:bg-darkSurface">
           <Pressable
             className="active:opacity-60 ml-2"
             onPress={onSearch}
@@ -57,17 +57,18 @@ const AddMembersModal = ({
             <Ionicons
               name="search-circle"
               color={theme.icon}
-              size={36}
+              size={40}
             />
           </Pressable>
           <TextInput
             placeholder="Search by username"
             placeholderTextColor={Colors.neutralText}
-            className="text-lightText dark:text-darkText text-lg px-1 py-3 w-full"
+            className="flex-1 text-lightText dark:text-darkText text-lg mx-1"
             onChangeText={setTargetUsername}
             value={targetUsername}
             onSubmitEditing={onSearch}
             returnKeyType="search"
+            textAlignVertical="center"
           />
         </View>
 

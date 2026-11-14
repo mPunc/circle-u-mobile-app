@@ -1,8 +1,5 @@
-import { useUser } from '../../../hooks/useUser'
 import { useProfile } from '../../../hooks/useProfile'
 import { router } from 'expo-router'
-import { getGroupsForUserAsync } from '../../../services/groupsService'
-import { useState } from 'react'
 
 // themed components
 import ThemedText from '../../../components/ThemedText'
@@ -13,17 +10,7 @@ import ThemedConversationList from '../../../components/wrappers/ThemedConversat
 
 
 const Groups = () => {
-  const { user } = useUser()
-  const { profile } = useProfile()
-
-  const [ groups, setGroups ] = useState([])
-
-  const handleLoad = async () => {
-    const g = await getGroupsForUserAsync(user.uid)
-    // @ts-ignore
-    // add some error handling (for null and such)
-    setGroups(g)
-  }
+  const { profile, groups } = useProfile()
 
   return (
     <ThemedView className="flex-1 items-center justify-center" safeArea>
@@ -37,16 +24,9 @@ const Groups = () => {
 
       <Spacer className="h-5"/>
 
-      <ThemedText>Hello, {profile?.username ?? "user"}</ThemedText>
+      <ThemedText>Hello, {profile.username}</ThemedText>
 
       <ThemedText>Your groups:</ThemedText>
-
-      <Spacer className="h-2"/>
-
-      <ThemedButton
-        label="Get groups"
-        onPress={handleLoad}
-      />
 
       <Spacer/>
 

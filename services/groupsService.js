@@ -17,9 +17,17 @@ export async function createGroupAsync(uid, groupName) {
 }
 
 /**
- * Fetches groups with all data for user ID, used in groups/index
+ * @typedef GroupPreviewData
+ * @property {string} id
+ * @property {string} name
+ * @property {string} avatar
+ * @property {string} lastMessage
+ * @property {string} lastMessageAt
+ */
+/**
+ * Fetches groups with preview data for user ID, used in groups/index, moving to ProfileContext
  * @param {string} uid
- * @returns {Promise<Object[] | null>}
+ * @returns {Promise<GroupPreviewData[]>}
  */
 export async function getGroupsForUserAsync(uid) {
   try {
@@ -27,13 +35,16 @@ export async function getGroupsForUserAsync(uid) {
     const qSnap = await getDocs(q)
     const groups = qSnap.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      name: doc.data().name,
+      avatar: doc.data().avatar,
+      lastMessage: doc.data().lastMessage,
+      lastMessageAt: doc.data().lastMessageAt
     }))
     return groups
   } catch (error) {
-    console.log("Error fetching profile: ", error)
+    console.log("Error fetching groups: ", error)
   }
-  return null
+  return []
 }
 
 /**

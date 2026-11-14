@@ -14,7 +14,7 @@ import Avatar from '../Avatar'
  * One item row
  * @param {Object} props
  * @param {(item: Object) => void} props.onPress
- * @param {ConversationData} props.item
+ * @param {ConversationData|import("../../services/groupsService").GroupPreviewData} props.item
  * @param {"group" | "dm"} props.type
  * @param {string} props.rowHeight
  * @param {boolean} props.selectableRows
