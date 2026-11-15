@@ -25,7 +25,7 @@ export async function createGroupAsync(uid, groupName) {
  * @property {string} lastMessageAt
  */
 /**
- * Fetches groups with preview data for user ID, used in groups/index, moving to ProfileContext
+ * Fetches groups with preview data for user ID, used in ProfileContext
  * @param {string} uid
  * @returns {Promise<GroupPreviewData[]>}
  */

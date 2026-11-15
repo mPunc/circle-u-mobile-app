@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../constants/Colors'
 import { useColorScheme } from 'nativewind'
-import ThemedConversationList from '../wrappers/ThemedConversationList'
+import ThemedConversationList from '../conversations/ThemedConversationList'
 import ThemedButton from '../ThemedButton'
 
 /**

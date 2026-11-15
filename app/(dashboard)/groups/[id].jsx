@@ -17,6 +17,7 @@ import Spacer from '../../../components/Spacer'
 import LoadingScreen from '../../../components/screen-wrappers/LoadingScreen'
 import AddMembersModal from '../../../components/modals/AddMembersModal'
 import Avatar from '../../../components/Avatar'
+import MessageComposer from '../../../components/conversations/MessageComposer'
 
 const GroupWithId = () => {
   const { id: groupId } = useLocalSearchParams()
@@ -105,40 +106,11 @@ const GroupWithId = () => {
         }}
       />
 
-      <View
-        className="flex-row items-center justify-between bg-lightSurface dark:bg-darkSurface w-[98%] my-2"
-        style={{ borderRadius: (3860 / messageInputHeight) }}
-      >
-        <TextInput
-          placeholder="Send a message..."
-          placeholderTextColor={Colors.neutralText}
-          className="flex-1 text-lightText dark:text-darkText text-lg ml-3"
-          onChangeText={setMessage}
-          value={message}
-          multiline
-          textAlignVertical="center"
-          style={{ height: messageInputHeight }}
-          onContentSizeChange={(e) => {
-            const contentHeight = e.nativeEvent.contentSize.height
-            setMessageInputHeight(Math.min(184, Math.max(46, contentHeight)))
-            // adjust border radius of the parent View based on contentHeight
-          }}
-        />
-        <Pressable
-          className="
-            active:opacity-60
-            rounded-full bg-lightIcon dark:bg-darkIcon
-            mr-2 size-11 justify-center items-center
-          "
-          onPress={handleSendMessage}
-        >
-          <Ionicons
-            name="send"
-            color={theme.surface}
-            size={28}
-          />
-        </Pressable>
-      </View>
+      <MessageComposer
+        setMessage={setMessage}
+        message={message}
+        handleSendMessage={handleSendMessage}
+      />
 
       <AddMembersModal
         visible={addMembers.visible}
