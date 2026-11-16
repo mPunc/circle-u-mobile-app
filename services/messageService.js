@@ -2,9 +2,16 @@ import { db } from '../lib/firebase'
 import { collection, query, orderBy, getDocs, addDoc, serverTimestamp} from 'firebase/firestore'
 
 /**
+ * @typedef MessageData
+ * @property {string} id
+ * @property {string} text
+ * @property {string} senderId
+ * @property {*} createdAt
+ */
+/**
  * Fetches snapshot of messages for a group
  * @param {string} groupId
- * @returns {Promise<Object[]|null>}
+ * @returns {Promise<MessageData[]>}
  */
 export async function getMessagesForGroupAsync(groupId) {
   try {
@@ -14,11 +21,14 @@ export async function getMessagesForGroupAsync(groupId) {
     const messagesSnap = await getDocs(q)
     return messagesSnap.docs.map((doc) => ({
       id: doc.id,
+      text: doc.data().text,
+      senderId: doc.data().senderId,
+      createdAt: doc.data().createdAt,
       ...doc.data()
     }))
   } catch (error) {
     console.log("Error fetching messages: ", error)
-    return null
+    return []
   }
 }
 

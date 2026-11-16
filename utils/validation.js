@@ -1,20 +1,32 @@
-// frontend validation functions
+// frontend validation functions, return null if ok, return "error" message string if not
 
-// validates email input, checks if empty, checks for "@", returns null if valid
+/**
+ * Validates email input, checks if empty, checks for "@", returns null if valid
+ * @param {string} email 
+ * @returns {string|null}
+ */
 export function validateEmail(email) {
   if (!email.trim()) return "Email is required."
   if (!email.includes("@") || email.endsWith("@") || (email.charAt(0) === "@")) return "Please enter a valid email address."
   return null
 }
 
-// validates password input, checks if empty, length > 8, returns null if valid
+/**
+ * Validates password input, checks if empty, length > 8, returns null if valid
+ * @param {string} password 
+ * @returns {string|null}
+ */
 export function validatePassword(password) {
   if (!password) return "Please enter password."
   if (password.length < 8 ) return "Password must be at least 8 characters."
   return null
 }
 
-// validates username input, checks if empty, length > 4 and < 30, regex tests, return null if valid
+/**
+ * Validates username input, checks if empty, length > 4 and < 30, regex tests, return null if valid
+ * @param {string} username 
+ * @returns {string|null}
+ */
 export function validateUsername(username) {
   if (!username.trim()) return "Please enter username."
   if (username.length < 4 ) return "Username must be at least 4 characters long."

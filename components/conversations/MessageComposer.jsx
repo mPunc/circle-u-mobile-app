@@ -10,12 +10,12 @@ import { useColorScheme } from 'nativewind'
  * @param {Object} props 
  * @param {import('react').Dispatch<import('react').SetStateAction<string>>} props.setMessage
  * @param {string} props.message
- * @param {() => void} props.handleSendMessage
+ * @param {() => void} props.onSendMessage
  */
 const MessageComposer = ({
   setMessage,
   message,
-  handleSendMessage
+  onSendMessage
 }) => {
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme ?? "light"]
@@ -46,7 +46,7 @@ const MessageComposer = ({
           rounded-full bg-lightIcon dark:bg-darkIcon
           mr-2 size-11 justify-center items-center
         "
-        onPress={handleSendMessage}
+        onPress={onSendMessage}
       >
         <Ionicons
           name="send"

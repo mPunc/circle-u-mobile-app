@@ -2,13 +2,13 @@ import { useLocalSearchParams, router } from 'expo-router'
 import { useState, useEffect } from 'react'
 import { getGroupByIdAsync } from '../../../services/groupsService'
 import useAddMembers from '../../../hooks/useAddMembers'
-import { getMessagesForGroupAsync, sendMessageForGroupAsync } from '../../../services/messageService'
-import { useUser } from '../../../hooks/useUser'
+import useMessaging from '../../../hooks/useMessaging'
+import { getMessagesForGroupAsync } from '../../../services/messageService'
 
 import Ionicons from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../../constants/Colors'
 import { useColorScheme } from 'nativewind'
-import { FlatList, KeyboardAvoidingView, Platform, Pressable, View, TextInput } from 'react-native'
+import { FlatList, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native'
 
 // themed components
 import ThemedText from '../../../components/ThemedText'
@@ -18,42 +18,22 @@ import LoadingScreen from '../../../components/screen-wrappers/LoadingScreen'
 import AddMembersModal from '../../../components/modals/AddMembersModal'
 import Avatar from '../../../components/Avatar'
 import MessageComposer from '../../../components/conversations/MessageComposer'
+import MessageFeed from '../../../components/conversations/MessageFeed'
 
 const GroupWithId = () => {
   const { id: groupId } = useLocalSearchParams()
   const [groupData, setGroupData] = useState(null)
-  const [groupMessages, setGroupMessages] = useState([])
   const addMembers = useAddMembers(groupId, loadGroupData, groupData?.members)
-
-  const [message, setMessage] = useState("")
-  const [messageInputHeight, setMessageInputHeight] = useState(46)
-  const { user } = useUser()
+  const messaging = useMessaging(groupId)
 
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme ?? "light"]
-
-  async function loadMessages() {
-    const messages = await getMessagesForGroupAsync(groupId)
-    setGroupMessages(messages)
-  }
-
-  async function handleSendMessage() {
-    if (message.trim().length !== 0) {
-      const success = await sendMessageForGroupAsync(user.uid, groupId, message)
-      if (success) {
-        setMessage("")
-        await loadMessages()
-      } else {
-        // message for user that sending failed or stg, error handle
-      }
-    }
-  }
 
   async function loadGroupData() {
     const response = await getGroupByIdAsync(groupId)
     if (response !== null) setGroupData(response)
     else router.back()
-    await loadMessages()
+    await messaging.refreshMessages()
   }
   useEffect(() => {
     loadGroupData()
@@ -91,25 +71,14 @@ const GroupWithId = () => {
         </Pressable>
       </View>
 
-      <FlatList
-        data={groupMessages}
-        keyExtractor={(item) => item.id}
-        className=""
-        renderItem={({ item }) => {
-          return (
-            <>
-              <ThemedText>{item.text}</ThemedText>
-              <ThemedText>Sent by: {item.senderId}</ThemedText>
-              <ThemedText>Sent at: {item.createdAt.toDate().toDateString()}</ThemedText>
-            </>
-          )
-        }}
+      <MessageFeed
+        messages={messaging.messages}
       />
 
       <MessageComposer
-        setMessage={setMessage}
-        message={message}
-        handleSendMessage={handleSendMessage}
+        message={messaging.messageDraft}
+        setMessage={messaging.setMessageDraft}
+        onSendMessage={messaging.handleSendMessage}
       />
 
       <AddMembersModal
@@ -123,7 +92,6 @@ const GroupWithId = () => {
         onSubmit={addMembers.handleSubmit}
         onClose={addMembers.reset}
       />
-      
     </KeyboardAvoidingView>
     </ThemedView>
   )

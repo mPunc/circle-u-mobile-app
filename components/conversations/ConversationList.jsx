@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native'
-import ThemedConversationListItem from './ThemedConversationListItem'
+import ThemedConversationListItem from './ConversationListItem'
 
 /**
  * @typedef {Object} ConversationData

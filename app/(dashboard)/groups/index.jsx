@@ -6,7 +6,7 @@ import ThemedText from '../../../components/ThemedText'
 import Spacer from '../../../components/Spacer'
 import ThemedButton from '../../../components/ThemedButton'
 import ThemedView from '../../../components/ThemedView'
-import ThemedConversationList from '../../../components/conversations/ThemedConversationList'
+import ThemedConversationList from '../../../components/conversations/ConversationList'
 
 const Groups = () => {
   const { profile, groups } = useProfile()
