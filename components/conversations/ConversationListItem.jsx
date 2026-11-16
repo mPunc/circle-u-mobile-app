@@ -20,7 +20,7 @@ import Avatar from '../Avatar'
  * @param {boolean} props.selectableRows
  * @param {(item: void) => boolean} props.selectedCondition
  */
-const ThemedConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, selectedCondition }) => {
+const ConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, selectedCondition }) => {
   const isSelected = selectableRows ? selectedCondition() : false
 
   let conversationName = ""
@@ -48,4 +48,4 @@ const ThemedConversationListItem = ({ onPress, item, type, rowHeight, selectable
   )
 }
 
-export default ThemedConversationListItem
+export default ConversationListItem

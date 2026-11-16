@@ -1,24 +1,36 @@
-import { FlatList } from 'react-native'
+import { FlatList, View } from 'react-native'
 import ThemedText from '../ThemedText'
+import { formatTimestampForMessages } from '../../utils/formatter'
+import { useUser } from '../../hooks/useUser'
 
 /**
  * Use with custom hook
  * @param {Object} props
  * @param {import('../../services/messageService').MessageData[]} props.messages
+ * @param {string} [props.className = ""]
  */
-const MessageFeed = ({ messages }) => {
+const MessageFeed = ({ messages, className = "" }) => {
+  const { user } = useUser()
   return (
     <FlatList
       data={messages}
       keyExtractor={(item) => item.id}
-      className=""
+      className={`w-full ${className}`}
       renderItem={({ item }) => {
+        const me = item.senderId === user.uid
         return (
-          <>
-            <ThemedText>{item.text}</ThemedText>
-            <ThemedText>Sent by: {item.senderId}</ThemedText>
-            <ThemedText>Sent at: {item.createdAt.toDate().toDateString()}</ThemedText>
-          </>
+          <View
+            className={`mx-6 my-1 justify-center
+              ${me ? "items-end" : "items-start"}
+            `}
+          >
+            <ThemedText
+              className={`
+                ${me ? "bg-primaryAccent" : "bg-lightAccent dark:bg-darkAccent"} text-lg
+                px-3 py-1 rounded-full
+            `}>{item.text}</ThemedText>
+            <ThemedText className="mx-1 mt-[3px]" variant="small">{formatTimestampForMessages(item.createdAt)}</ThemedText>
+          </View>
         )
       }}
     />

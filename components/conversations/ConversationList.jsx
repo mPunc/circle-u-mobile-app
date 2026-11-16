@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native'
-import ThemedConversationListItem from './ConversationListItem'
+import ConversationListItem from './ConversationListItem'
 
 /**
  * @typedef {Object} ConversationData
@@ -20,7 +20,7 @@ import ThemedConversationListItem from './ConversationListItem'
  * @param {boolean} [props.selectMultiRows = "false"] - set true to enable selectable list rows
  * @param {(item: ConversationData|import("../../services/groupsService").GroupPreviewData) => boolean} [props.selectedCondition = () => false]
  */
-const ThemedConversationList = ({
+const ConversationList = ({
   data,
   keyExtractor = (item) => item.id ?? item.uid,
   onItemPress,
@@ -37,7 +37,7 @@ const ThemedConversationList = ({
       className={`w-full ${className}`}
       renderItem={({ item }) => {
         return (
-          <ThemedConversationListItem
+          <ConversationListItem
             onPress={() => onItemPress(item)}
             rowHeight={rowHeight}
             item={item}
@@ -51,4 +51,4 @@ const ThemedConversationList = ({
   )
 }
 
-export default ThemedConversationList
+export default ConversationList

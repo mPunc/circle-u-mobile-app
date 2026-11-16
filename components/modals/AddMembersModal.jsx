@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../constants/Colors'
 import { useColorScheme } from 'nativewind'
-import ThemedConversationList from '../conversations/ConversationList'
+import ConversationList from '../conversations/ConversationList'
 import ThemedButton from '../ThemedButton'
 
 /**
@@ -72,7 +72,7 @@ const AddMembersModal = ({
           />
         </View>
 
-        <ThemedConversationList
+        <ConversationList
           data={foundMembers}
           onItemPress={(item) => onSelectMember(item.uid)}
           type="dm"

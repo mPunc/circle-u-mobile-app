@@ -1,12 +1,12 @@
 import { db } from '../lib/firebase'
-import { collection, query, orderBy, getDocs, addDoc, serverTimestamp} from 'firebase/firestore'
+import { collection, query, orderBy, getDocs, addDoc, serverTimestamp } from 'firebase/firestore'
 
 /**
  * @typedef MessageData
  * @property {string} id
  * @property {string} text
  * @property {string} senderId
- * @property {*} createdAt
+ * @property {import("firebase/firestore").Timestamp} createdAt
  */
 /**
  * Fetches snapshot of messages for a group
