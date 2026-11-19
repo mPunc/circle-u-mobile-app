@@ -1,5 +1,6 @@
 import { useProfile } from '../../../hooks/useProfile'
-import { router } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
+import { useCallback } from 'react'
 
 // themed components
 import ThemedText from '../../../components/ThemedText'
@@ -9,7 +10,13 @@ import ThemedView from '../../../components/ThemedView'
 import ConversationList from '../../../components/conversations/ConversationList'
 
 const Groups = () => {
-  const { profile, groups } = useProfile()
+  const { profile, groups, loadGroups } = useProfile()
+
+  useFocusEffect(
+    useCallback(() => {
+      loadGroups()
+    }, [])
+  )
 
   return (
     <ThemedView className="flex-1 items-center justify-center" safeArea>

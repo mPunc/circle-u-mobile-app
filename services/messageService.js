@@ -8,6 +8,7 @@ import { collection, query, orderBy, getDocs, serverTimestamp, writeBatch, doc }
  * @property {string} senderId
  * @property {import("firebase/firestore").Timestamp} createdAt
  */
+
 /**
  * Fetches snapshot of messages for a group
  * @param {string} groupId

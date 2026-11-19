@@ -28,8 +28,8 @@ export function ProfileProvider({ children }) {
    * Initial group preview data loading and refreshing for user
    * @param {string} uid 
    */
-  async function loadGroups(uid) {
-    const data = await getGroupsForUserAsync(uid)
+  async function loadGroups() {
+    const data = await getGroupsForUserAsync(user.uid)
     // add some exception handling for errors and data === []
     // @ts-ignore
     setGroups(data)
@@ -38,15 +38,15 @@ export function ProfileProvider({ children }) {
    * Loads profile whenever the user changes (logs in or out)
    * @param {string} uid 
    */
-  async function loadProfile(uid) {
-    const data = await loadProfileAsync(uid)
-    // add exception handling for data === null and errors
+  async function loadProfile() {
+    const data = await loadProfileAsync(user.uid)
+    // add exception handling for data == {} and errors
     setProfile(data)
   }
   useEffect(() => {
     if (!!user) {
-      loadProfile(user.uid)
-      loadGroups(user.uid)
+      loadProfile()
+      loadGroups()
     } else {
       setProfile({})
       setGroups([])
