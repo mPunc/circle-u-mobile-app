@@ -1,20 +1,13 @@
-import { Pressable } from 'react-native'
+import { Pressable, View } from 'react-native'
 import ThemedText from '../ThemedText'
 import Avatar from '../Avatar'
+import { formatTimestampForMessages } from '../../utils/formatter'
 
-/**
- * @typedef {Object} ConversationData
- * @property {string} id
- * @property {string} uid
- * @property {string} [name]
- * @property {string} [username]
- * @property {string} [avatar]
- */
 /**
  * One item row
  * @param {Object} props
  * @param {(item: Object) => void} props.onPress
- * @param {ConversationData|import("../../services/groupsService").GroupPreviewData} props.item
+ * @param {import('./ConversationList').ConversationData|import("../../services/groupsService").GroupPreviewData} props.item
  * @param {"group" | "dm"} props.type
  * @param {string} props.rowHeight
  * @param {boolean} props.selectableRows
@@ -29,6 +22,19 @@ const ConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, 
 
   const avatarSize = type === "dm" ? 40 : 48
 
+  const ActivityRow = () => {
+    if (item.lastActivity == null) return <ThemedText className="w-full">Be the first to send a message!</ThemedText>
+    else if (item.lastActivity.type === "message") return (
+      <View className="w-full flex-row justify-between items-center">
+        <ThemedText className="w-[60%]" numberOfLines={1} ellipsizeMode="tail">{item.lastActivity.senderId + ": " + item.lastActivity.content}</ThemedText>
+        <ThemedText>{formatTimestampForMessages(item.lastActivity.createdAt)}</ThemedText>
+      </View>
+    )
+    else return (
+      <ThemedText>Nema ništa, promašaj</ThemedText>
+    )
+  }
+
   return (
     <Pressable
       onPress={() => onPress(item)}
@@ -41,9 +47,10 @@ const ConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, 
       `}
     >
       <Avatar username={conversationName} size={avatarSize} imageUrl={item.avatar}/>
-      <ThemedText variant="large">
-        {conversationName}
-      </ThemedText>
+      <View className="flex-1 items-start justify-center">
+        <ThemedText className="font-semibold" variant="large">{conversationName}</ThemedText>
+        <ActivityRow/>
+      </View>
     </Pressable>
   )
 }

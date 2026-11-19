@@ -1,5 +1,5 @@
 import { db } from '../lib/firebase'
-import { collection, query, orderBy, getDocs, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, query, orderBy, getDocs, serverTimestamp, writeBatch, doc } from 'firebase/firestore'
 
 /**
  * @typedef MessageData
@@ -42,12 +42,24 @@ export async function getMessagesForGroupAsync(groupId) {
 export async function sendMessageForGroupAsync(uid, groupId, text) {
   try {
     if (text.trim().length !== 0) {
-      const groupMessColl = collection(db, "groups", groupId, "messages")
-      await addDoc(groupMessColl, {
-        text: text,
+      const batch = writeBatch(db)
+      const messageRef = doc(collection(db, "groups", groupId, "messages"))
+      const groupRef = doc(db, "groups", groupId)
+      const timestamp = serverTimestamp()
+      batch.set(messageRef, {
         senderId: uid,
-        createdAt: serverTimestamp()
+        text: text,
+        createdAt: timestamp
       })
+      batch.update(groupRef, {
+        lastActivity: {
+          senderId: uid,
+          type: "message",
+          content: text,
+          createdAt: timestamp
+        }
+      })
+      await batch.commit()
     }
     return true
   } catch (error) {

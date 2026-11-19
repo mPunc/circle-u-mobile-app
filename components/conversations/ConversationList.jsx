@@ -3,11 +3,14 @@ import ConversationListItem from './ConversationListItem'
 
 /**
  * @typedef {Object} ConversationData
- * @property {string} id
- * @property {string} uid
+ * @property {string} [id]
+ * @property {string} [uid]
  * @property {string} [name]
  * @property {string} [username]
+ * @property {string} avatar
+ * @property {import('../../services/groupsService').LastActivityData} lastActivity
  */
+
 /**
  * Component that uses FlatList for displaying group or DM conversations
  * @param {Object} props

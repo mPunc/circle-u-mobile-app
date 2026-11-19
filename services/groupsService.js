@@ -2,6 +2,20 @@ import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp, query, where, getDocs, doc, updateDoc, arrayUnion, getDoc, orderBy, startAt, endAt } from 'firebase/firestore'
 
 /**
+ * @typedef GroupPreviewData
+ * @property {string} id
+ * @property {string} name
+ * @property {string} avatar
+ * @property {LastActivityData} lastActivity
+ * 
+ * @typedef LastActivityData
+ * @property {string} senderId
+ * @property {string} type
+ * @property {string} content
+ * @property {import("firebase/firestore").Timestamp} createdAt
+ */
+
+/**
  * Creates a simple group, used in groups/create
  * @param {string} uid 
  * @param {string} groupName 
@@ -12,18 +26,11 @@ export async function createGroupAsync(uid, groupName) {
     name: groupName,
     createdBy: uid,
     createdAt: serverTimestamp(),
-    members: [uid]
+    members: [uid],
+    lastActivity: {}
   })
 }
 
-/**
- * @typedef GroupPreviewData
- * @property {string} id
- * @property {string} name
- * @property {string} avatar
- * @property {string} lastMessage
- * @property {string} lastMessageAt
- */
 /**
  * Fetches groups with preview data for user ID, used in ProfileContext
  * @param {string} uid
@@ -37,8 +44,7 @@ export async function getGroupsForUserAsync(uid) {
       id: doc.id,
       name: doc.data().name,
       avatar: doc.data().avatar,
-      lastMessage: doc.data().lastMessage,
-      lastMessageAt: doc.data().lastMessageAt
+      lastActivity: doc.data().lastActivity
     }))
     return groups
   } catch (error) {

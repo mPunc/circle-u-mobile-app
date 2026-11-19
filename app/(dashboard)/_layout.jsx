@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router'
+import { Tabs, useSegments } from 'expo-router'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { useColorScheme } from 'nativewind'
 import { Colors } from '../../constants/Colors'
@@ -9,6 +9,9 @@ const DashboardLayout = () => {
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme ?? "light"]
   const insets = useSafeAreaInsets()
+  // hiding tabs on certain screens
+  const segments = useSegments()
+  const hideTabBar = (segments.includes("groups") && (segments.includes("create") || segments.includes("[id]")))
 
   return (
     <ProfileProvider>
@@ -19,6 +22,7 @@ const DashboardLayout = () => {
           backgroundColor: theme.surface,
           height: insets.bottom + 55,
           borderTopColor: theme.surface,
+          display: hideTabBar ? "none" : "flex"
         },
         tabBarLabelStyle: {
           fontSize: 11

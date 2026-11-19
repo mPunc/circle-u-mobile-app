@@ -2,11 +2,14 @@
 
 /**
  * Returns string for messages
- * @param {import("firebase/firestore").Timestamp} timestamp from db
+ * @param {import("firebase/firestore").Timestamp|null} timestamp from db
  * @param {Intl.LocalesArgument} [locale = "en-GB"]
  * @returns {string}
  */
 export function formatTimestampForMessages(timestamp, locale = "en-GB") {
+  // null or undefined
+  if (timestamp == null) return ""
+  
   const date = timestamp.toDate()
   const now = new Date()
 

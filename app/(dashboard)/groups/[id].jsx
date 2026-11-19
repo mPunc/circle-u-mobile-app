@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react'
 import { getGroupByIdAsync } from '../../../services/groupsService'
 import useAddMembers from '../../../hooks/useAddMembers'
 import useMessaging from '../../../hooks/useMessaging'
-import { getMessagesForGroupAsync } from '../../../services/messageService'
 
 import Ionicons from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../../constants/Colors'
 import { useColorScheme } from 'nativewind'
-import { FlatList, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native'
+import { KeyboardAvoidingView, Platform, Pressable, View } from 'react-native'
 
 // themed components
 import ThemedText from '../../../components/ThemedText'
