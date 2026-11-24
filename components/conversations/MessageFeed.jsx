@@ -13,9 +13,10 @@ const MessageFeed = ({ messages, className = "" }) => {
   const { user } = useUser()
   return (
     <FlatList
-      data={messages}
+      data={messages.reverse()}
       keyExtractor={(item) => item.id}
       className={`w-full ${className}`}
+      inverted
       renderItem={({ item }) => {
         const me = item.senderId === user.uid
         return (
@@ -26,7 +27,7 @@ const MessageFeed = ({ messages, className = "" }) => {
           >
             <ThemedText
               className={`
-                ${me ? "bg-primaryAccent" : "bg-lightAccent dark:bg-darkAccent"} text-lg
+                ${me ? "bg-primaryAccent" : "bg-lightSurface dark:bg-darkSurface"} text-lg
                 px-3 py-1 rounded-full
             `}>{item.text}</ThemedText>
             <ThemedText className="mx-1 mt-[3px]" variant="small">{formatTimestampForMessages(item.createdAt)}</ThemedText>

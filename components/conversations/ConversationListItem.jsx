@@ -27,7 +27,7 @@ const ConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, 
     else if (item.lastActivity.type === "message") return (
       <View className="w-full flex-row justify-between items-center">
         <ThemedText className="w-[60%]" numberOfLines={1} ellipsizeMode="tail">{item.lastActivity.senderId + ": " + item.lastActivity.content}</ThemedText>
-        <ThemedText>{formatTimestampForMessages(item.lastActivity.createdAt)}</ThemedText>
+        <ThemedText className="mr-1">{formatTimestampForMessages(item.lastActivity.createdAt)}</ThemedText>
       </View>
     )
     else return (
@@ -49,7 +49,7 @@ const ConversationListItem = ({ onPress, item, type, rowHeight, selectableRows, 
       <Avatar username={conversationName} size={avatarSize} imageUrl={item.avatar}/>
       <View className="flex-1 items-start justify-center">
         <ThemedText className="font-semibold" variant="large">{conversationName}</ThemedText>
-        <ActivityRow/>
+        {type === "group" && <ActivityRow/>}
       </View>
     </Pressable>
   )

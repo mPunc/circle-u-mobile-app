@@ -1,13 +1,12 @@
-import { KeyboardAvoidingView, Modal, Pressable, Platform, View, TextInput } from 'react-native'
+import { KeyboardAvoidingView, Modal, Pressable, Platform, View, TextInput, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../constants/Colors'
 import { useColorScheme } from 'nativewind'
 import ConversationList from '../conversations/ConversationList'
-import ThemedButton from '../ThemedButton'
 
 /**
- * Use with custom hook useAddMembers()
+ * Use with custom hook useAddMembers(), bugged visuals, fix later
  * @param {Object} props
  * @param {boolean} props.visible
  * @param {string} props.targetUsername
@@ -44,12 +43,12 @@ const AddMembersModal = ({
       <KeyboardAvoidingView
         className="
           h-[360px] rounded-t-3xl border-t-2 border-lightIcon dark:border-darkIcon
-          bg-lightBackground dark:bg-darkBackground px-5 pt-6
+          bg-lightBackground dark:bg-darkBackground pt-6
           justify-between
         "
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View className="rounded-full flex-row items-center justify-start bg-lightSurface dark:bg-darkSurface">
+        <View className="rounded-full flex-row items-center mx-5 justify-start bg-lightSurface dark:bg-darkSurface">
           <Pressable
             className="active:opacity-60 ml-2"
             onPress={onSearch}
@@ -76,18 +75,18 @@ const AddMembersModal = ({
           data={foundMembers}
           onItemPress={(item) => onSelectMember(item.uid)}
           type="dm"
-          className="mt-2"
+          className="mt-2 px-5"
           rowHeight="h-14"
           selectMultiRows={true}
           selectedCondition={(item) => membersToAdd.includes(item.uid)}
         />
 
-        <ThemedButton
-          label="Add selected"
-          className="justify-self-end self-center"
+        <Pressable
+          className="w-full h-14 items-center justify-center bg-success active:bg-successLight border-t-2"
           onPress={onSubmit}
           disabled={membersToAdd.length === 0}
-        />
+        ><Text className="text-center font-semibold text-lg">Add selected</Text>
+        </Pressable>
       </KeyboardAvoidingView>
       </SafeAreaView>
     </Modal>
