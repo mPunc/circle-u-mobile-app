@@ -25,7 +25,7 @@ const useMessaging = (groupId) => {
   // adjust how messages are refreshed in the future
   async function refreshMessages() {
     const updatedMessages = await getMessagesForGroupAsync(groupId)
-    setMessages(updatedMessages)
+    setMessages(updatedMessages.reverse())
   }
 
   return ({

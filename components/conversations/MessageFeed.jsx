@@ -13,7 +13,7 @@ const MessageFeed = ({ messages, className = "" }) => {
   const { user } = useUser()
   return (
     <FlatList
-      data={messages.reverse()}
+      data={messages}
       keyExtractor={(item) => item.id}
       className={`w-full ${className}`}
       inverted

@@ -6,7 +6,7 @@ import { useColorScheme } from 'nativewind'
 import ConversationList from '../conversations/ConversationList'
 
 /**
- * Use with custom hook useAddMembers(), bugged visuals, fix later
+ * Use with custom hook useAddMembers()
  * @param {Object} props
  * @param {boolean} props.visible
  * @param {string} props.targetUsername
