@@ -15,7 +15,7 @@ const ThemedText = ({ className = "", themed = true, variant = "default", ...pro
       className={`
         ${
           themed ?
-          "text-lightText dark:text-darkText bg-lightBackground dark:bg-darkBackground" :
+          "text-lightText dark:text-darkText" :
           "text-primaryText"
         }
         ${variants[variant]}

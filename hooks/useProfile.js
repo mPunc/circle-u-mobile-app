@@ -1,6 +1,15 @@
 import { useContext } from 'react'
 import { ProfileContext } from '../contexts/ProfileContext'
 
+/**
+ * Hook for ProfileContext, wraps whole (dashboard)
+ * @returns {{
+ *  profile: import("../services/profileService").ProfileData,
+ *  editProfile: (data: object) => Promise<void>,
+ *  groups: import("../services/groupsService").GroupPreviewData[],
+ *  loadGroups: () => Promise<void>
+ * }}
+ */
 export function useProfile() {
   const context = useContext(ProfileContext)
   

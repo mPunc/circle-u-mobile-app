@@ -3,6 +3,7 @@ import { auth } from '../lib/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from 'firebase/auth'
 import { createProfileAsync } from '../services/profileService'
 
+// @ts-ignore
 export const AuthContext = createContext()
 
 export function UserProvider({ children }) {

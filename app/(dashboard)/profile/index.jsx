@@ -32,22 +32,22 @@ const Profile = () => {
       <Spacer className="h-4"/>
 
       <View className="flex-initial items-center justify-center">
-        <Avatar username={profile?.username} size={156} imageUrl={profile?.profilePicture} />
+        <Avatar username={profile.username} size={156} imageUrl={profile.avatar} />
 
         <Spacer className="h-4"/>
 
         <View className="flex-col items-start justify-center w-80 gap-4">
           <ValueWithLabel
             label="Email:"
-            value={profile?.email ?? "no email"}
+            value={profile.email ?? "no email"}
           />
           <ValueWithLabel
             label="Username:"
-            value={profile?.username ?? ""}
+            value={profile.username ?? ""}
           />
           <ValueWithLabel
             label="Display name:"
-            value={profile?.displayName ?? ""}
+            value={profile.displayName ?? ""}
           />
         </View>
       </View>

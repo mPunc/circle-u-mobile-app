@@ -11,7 +11,6 @@ import ThemedButton from '../../../components/ThemedButton'
 import Avatar from '../../../components/Avatar'
 import InputWithLabel from '../../../components/wrappers/InputWithLabel'
 import ThemedActivityIndicator from '../../../components/ThemedActivityIndicator'
-import { type } from 'firebase/firestore/pipelines'
 
 const EditProfile = () => {
   const { profile, editProfile } = useProfile()
