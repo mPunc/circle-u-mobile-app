@@ -18,6 +18,7 @@ import ConversationListItem from './ConversationListItem'
  * @param {(item: ConversationData|import("../../services/groupsService").GroupPreviewData) => string} [props.keyExtractor=(item) => item.id] - FlatList keyExtractor override if needed
  * @param {(item: ConversationData|import("../../services/groupsService").GroupPreviewData) => void} props.onItemPress - Callback when an item is pressed
  * @param {"group" | "dm"} props.type - Conversation type, affects displayed data and default styling
+ * @param {Object.<string, string>} [props.usernameMap = {}] - Give usernames.data from cache when using "group" type.
  * @param {string} [props.className = ""]
  * @param {string} [props.rowHeight = "h-20"] - "h-20" by default, appends string to each row's parent element's className
  * @param {boolean} [props.selectMultiRows = "false"] - set true to enable selectable list rows
@@ -28,6 +29,7 @@ const ConversationList = ({
   keyExtractor = (item) => item.id ?? item.uid,
   onItemPress,
   type,
+  usernameMap = {},
   className = "",
   rowHeight = "h-20",
   selectMultiRows = false,
@@ -45,6 +47,7 @@ const ConversationList = ({
             rowHeight={rowHeight}
             item={item}
             type={type}
+            usernameMap={usernameMap}
             selectableRows={selectMultiRows}
             selectedCondition={() => selectedCondition(item)}
           />

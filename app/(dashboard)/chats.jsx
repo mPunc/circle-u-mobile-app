@@ -4,11 +4,9 @@ import ThemedView from '../../components/ThemedView'
 import ThemedText from '../../components/ThemedText'
 import Spacer from '../../components/Spacer'
 
-const Test1 = () => {
-  return <ThemedText>
-    testing text
-  </ThemedText>
-}
+// temp for testing
+import ThemedButton from '../../components/ThemedButton'
+import { removeUsernamesCacheAsync } from '../../lib/caching'
 
 const Chats = () => {
   return (
@@ -16,8 +14,12 @@ const Chats = () => {
       <ThemedText>Chats</ThemedText>
 
       <Spacer/>
+
+      <ThemedButton
+        label="Clear Usernames Cache"
+        onPress={removeUsernamesCacheAsync}
+      />
       
-      <Test1/>
     </ThemedView>
   )
 }

@@ -16,7 +16,7 @@ import { addDoc, collection, serverTimestamp, query, where, getDocs, doc, update
  */
 
 /**
- * Creates a simple group, used in groups/create
+ * - Creates a simple group, used in groups/create // unfinished
  * @param {string} uid 
  * @param {string} groupName 
  */
@@ -32,7 +32,7 @@ export async function createGroupAsync(uid, groupName) {
 }
 
 /**
- * Fetches groups with preview data for user ID, used in ProfileContext
+ * - Fetches groups with preview data for user ID, used in ProfileContext // update for cache, unfinished
  * @param {string} uid
  * @returns {Promise<GroupPreviewData[]>}
  */
@@ -60,6 +60,7 @@ export async function getGroupsForUserAsync(uid) {
  */
 export async function getGroupByIdAsync(id) {
   try {
+    console.log("groupsService\t//\tReading group data for id from DB")
     const groupRef = doc(db, "groups", id)
     const groupSnap = await getDoc(groupRef)
     if (groupSnap.exists()) return groupSnap.data()

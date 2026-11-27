@@ -6,6 +6,11 @@ import { createProfileAsync } from '../services/profileService'
 // @ts-ignore
 export const AuthContext = createContext()
 
+/**
+ * Component provider for AuthContext, enables useUser() hook.
+ * @param {Object} props
+ * @param {import('react').JSX.Element} props.children
+ */
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null)
   const [authError, setAuthError] = useState({type: null, message: ""})

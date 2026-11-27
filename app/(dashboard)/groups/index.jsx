@@ -10,8 +10,9 @@ import ThemedView from '../../../components/ThemedView'
 import ConversationList from '../../../components/conversations/ConversationList'
 
 const Groups = () => {
-  const { profile, groups, loadGroups } = useProfile()
+  const { profile, groups, loadGroups, usernamesData } = useProfile()
 
+  // Runs function every time screen comes to focus.
   useFocusEffect(
     useCallback(() => {
       loadGroups()
@@ -40,6 +41,7 @@ const Groups = () => {
         data={groups}
         onItemPress={(item) => router.push(`/(dashboard)/groups/${item.id}`)}
         type="group"
+        usernameMap={usernamesData.data}
       />
 
     </ThemedView>

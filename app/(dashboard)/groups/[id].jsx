@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { getGroupByIdAsync } from '../../../services/groupsService'
 import useAddMembers from '../../../hooks/useAddMembers'
 import useMessaging from '../../../hooks/useMessaging'
+import { useProfile } from '../../../hooks/useProfile'
 
 import Ionicons from '@react-native-vector-icons/ionicons'
 import { Colors } from '../../../constants/Colors'
@@ -24,6 +25,7 @@ const GroupWithId = () => {
   const [groupData, setGroupData] = useState(null)
   const addMembers = useAddMembers(groupId, loadGroupData, groupData?.members)
   const messaging = useMessaging(groupId)
+  const { handleUsernames } = useProfile()
 
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme ?? "light"]
@@ -31,8 +33,9 @@ const GroupWithId = () => {
   async function loadGroupData() {
     const response = await getGroupByIdAsync(groupId)
     if (response !== null) setGroupData(response)
-    else router.back()
-    await messaging.refreshMessages()
+    else {router.back(); return}
+    messaging.refreshMessages()
+    handleUsernames(response.members)
   }
   useEffect(() => {
     loadGroupData()
