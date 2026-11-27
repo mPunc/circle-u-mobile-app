@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from 'react'
 import { useUser } from '../hooks/useUser'
 import { loadProfileAsync, editProfileAsync } from '../services/profileService'
 import { getGroupsForUserAsync } from '../services/groupsService'
-import { getUsernamesAsync } from '../services/storageService'
+import { getProfilesDataAsync } from '../services/storageService'
 
 // @ts-ignore
 export const ProfileContext = createContext()
@@ -15,7 +15,7 @@ export const ProfileContext = createContext()
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState({})
   const [groups, setGroups] = useState([])
-  const [usernamesData, setUsernamesData] = useState({})
+  const [profilesData, setProfilesData] = useState({})
 
   const { user } = useUser()
 
@@ -32,13 +32,13 @@ export function ProfileProvider({ children }) {
   }
 
   /**
-   * - Handles usernames data, reads or updates for given uid array
+   * - Handles profilesData, reads, updates for given uid array
    * @param {string[]} [uids] 
    */
-  async function handleUsernames(uids) {
-    console.log("ProfileContext\t//\tHandling Usernames")
-    const refreshedData = await getUsernamesAsync(uids)
-    setUsernamesData(refreshedData)
+  async function handleProfilesData(uids) {
+    console.log("ProfileContext\t//\tHandling ProfilesData")
+    const refreshedData = await getProfilesDataAsync(uids)
+    setProfilesData(refreshedData)
   }
 
   /**
@@ -64,7 +64,7 @@ export function ProfileProvider({ children }) {
     if (!!user) {
       loadProfile()
       loadGroups()
-      handleUsernames()
+      handleProfilesData()
     } else {
       setProfile({})
       setGroups([])
@@ -72,7 +72,7 @@ export function ProfileProvider({ children }) {
   }, [user])
 
   return (
-    <ProfileContext.Provider value={{ profile, editProfile, groups, loadGroups, usernamesData, handleUsernames }}>
+    <ProfileContext.Provider value={{ profile, editProfile, groups, loadGroups, profilesData, handleProfilesData }}>
       {children}
     </ProfileContext.Provider>
   )

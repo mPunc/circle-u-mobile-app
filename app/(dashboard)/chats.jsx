@@ -6,7 +6,7 @@ import Spacer from '../../components/Spacer'
 
 // temp for testing
 import ThemedButton from '../../components/ThemedButton'
-import { removeUsernamesCacheAsync } from '../../lib/caching'
+import { removeProfilesDataCacheAsync } from '../../lib/caching'
 
 const Chats = () => {
   return (
@@ -17,7 +17,7 @@ const Chats = () => {
 
       <ThemedButton
         label="Clear Usernames Cache"
-        onPress={removeUsernamesCacheAsync}
+        onPress={removeProfilesDataCacheAsync}
       />
       
     </ThemedView>

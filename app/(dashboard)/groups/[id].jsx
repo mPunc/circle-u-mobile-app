@@ -25,7 +25,7 @@ const GroupWithId = () => {
   const [groupData, setGroupData] = useState(null)
   const addMembers = useAddMembers(groupId, loadGroupData, groupData?.members)
   const messaging = useMessaging(groupId)
-  const { handleUsernames } = useProfile()
+  const { handleProfilesData } = useProfile()
 
   const { colorScheme } = useColorScheme()
   const theme = Colors[colorScheme ?? "light"]
@@ -35,7 +35,7 @@ const GroupWithId = () => {
     if (response !== null) setGroupData(response)
     else {router.back(); return}
     messaging.refreshMessages()
-    handleUsernames(response.members)
+    handleProfilesData(response.members)
   }
   useEffect(() => {
     loadGroupData()

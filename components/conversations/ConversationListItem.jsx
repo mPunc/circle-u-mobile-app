@@ -9,23 +9,24 @@ import { formatTimestampForMessages } from '../../utils/formatter'
  * @param {(item: Object) => void} props.onPress
  * @param {import('./ConversationList').ConversationData|import("../../services/groupsService").GroupPreviewData} props.item
  * @param {"group" | "dm"} props.type
- * @param {Object.<string, string>} props.usernameMap
+ * @param {Object.<string, import('../../lib/caching').ProfileDataCached>} props.profiles
  * @param {string} props.rowHeight
  * @param {boolean} props.selectableRows
  * @param {(item: void) => boolean} props.selectedCondition
  */
-const ConversationListItem = ({ onPress, item, type, usernameMap, rowHeight, selectableRows, selectedCondition }) => {
+const ConversationListItem = ({ onPress, item, type, profiles, rowHeight, selectableRows, selectedCondition }) => {
   const isSelected = selectableRows ? selectedCondition() : false
 
   let conversationName = ""
   if (type === "group") conversationName = item.name ?? ""
+  // @ts-ignore
   else if (type === "dm") conversationName = item.username ?? ""
 
   const avatarSize = type === "dm" ? 40 : 48
 
   const ActivityRow = () => {
     if (item.lastActivity == null) return <ThemedText className="w-full">Be the first to send a message!</ThemedText>
-    const username = usernameMap[item.lastActivity.senderId] ?? item.lastActivity.senderId
+    const username = profiles[item.lastActivity.senderId]?.username ?? item.lastActivity.senderId
     if (item.lastActivity.type === "message") return (
       <View className="w-full flex-row justify-between items-center">
         <ThemedText className="w-[60%]" numberOfLines={1} ellipsizeMode="tail">{username + ": " + item.lastActivity.content}</ThemedText>
