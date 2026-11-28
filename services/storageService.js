@@ -8,6 +8,7 @@ import { readProfilesDataCacheAsync, updateProfilesDataCacheAsync } from '../lib
  * @returns {Promise<Object.<string, import('../lib/caching').ProfileDataCached>>}
  */
 export async function getProfilesDataAsync(uids) {
+  console.log("AS read")
   const profilesDataCache = await readProfilesDataCacheAsync()
   // Check if uids is not nullish and not an empty array
   if (uids != null && uids.length !== 0) {
@@ -18,7 +19,8 @@ export async function getProfilesDataAsync(uids) {
       || Date.now() - profilesDataCache[uid].updatedAt > 3600000
     )
     if (needUpdates.length > 0) {
-      console.log("storageService\t//\tUpdating usernames cache")
+      console.log("DB read")
+      console.log("storageService\t:\tprofilesData update | needUpdates.length: ", needUpdates.length)
       const q = query(collection(db, "profiles"), where(documentId(), "in", needUpdates))
       const qSnap = await getDocs(q)
       const data = Object.fromEntries(
@@ -34,11 +36,11 @@ export async function getProfilesDataAsync(uids) {
     }
   }
   if (profilesDataCache != null) {
-    console.log("storageService\t//\tReturning usernames from cache")
+    console.log("storageService\t:\tno profilesData update")
     return profilesDataCache
   }
   else {
-    console.log("storageService\t//\tReturning empty object")
+    console.log("storageService\t:\tprofilesData == {}")
     return {}
   }
 }

@@ -36,7 +36,6 @@ export function ProfileProvider({ children }) {
    * @param {string[]} [uids] 
    */
   async function handleProfilesData(uids) {
-    console.log("ProfileContext\t//\tHandling ProfilesData")
     const refreshedData = await getProfilesDataAsync(uids)
     setProfilesData(refreshedData)
   }
@@ -45,7 +44,6 @@ export function ProfileProvider({ children }) {
    * - Initial group preview data loading and refreshing for user
    */
   async function loadGroups() {
-    console.log("ProfileContext\t//\tLoading groups...")
     const data = await getGroupsForUserAsync(user.uid)
     // add some exception handling for errors and data === []
     // @ts-ignore
@@ -55,7 +53,6 @@ export function ProfileProvider({ children }) {
    * - Loads profile whenever the user changes (logs in or out)
    */
   async function loadProfile() {
-    console.log("ProfileContext\t//\tLoading current user profile...")
     const data = await loadProfileAsync(user.uid)
     // add exception handling for data == {} and errors
     setProfile(data)

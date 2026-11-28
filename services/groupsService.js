@@ -38,6 +38,8 @@ export async function createGroupAsync(uid, groupName) {
  */
 export async function getGroupsForUserAsync(uid) {
   try {
+    console.log("DB read")
+    console.log("groupsService\t:\treading for GroupPreviewData[]")
     const q = query(collection(db, "groups"), where("members", "array-contains", uid))
     const qSnap = await getDocs(q)
     const groups = qSnap.docs.map((doc) => ({
@@ -48,7 +50,7 @@ export async function getGroupsForUserAsync(uid) {
     }))
     return groups
   } catch (error) {
-    console.log("Error fetching groups: ", error)
+    console.log("ERROR \t fetching groups: ", error)
   }
   return []
 }
@@ -60,12 +62,12 @@ export async function getGroupsForUserAsync(uid) {
  */
 export async function getGroupByIdAsync(id) {
   try {
-    console.log("groupsService\t//\tReading group data for id from DB")
+    console.log("groupsService\t:\tReading group data from DB for id == ", id)
     const groupRef = doc(db, "groups", id)
     const groupSnap = await getDoc(groupRef)
     if (groupSnap.exists()) return groupSnap.data()
   } catch (error) {
-    console.log("Error fetching group data: ", error)
+    console.log("ERROR \t fetching group data: ", error)
   }
   return null
 }
@@ -94,7 +96,7 @@ export async function searchForMembersByUsernameAsync(username, exclude = null) 
     .filter((user) => !excludeUids.has(user.uid))
     return foundUsers
   } catch (error) {
-    console.log("Error searching for members: ", error)
+    console.log("ERROR \t searching for members: ", error)
   }
   return null
 }
@@ -113,7 +115,7 @@ export async function addMembersToGroupAsync(groupId, memberIds) {
     })
     return true
   } catch (error) {
-    console.log("Error adding members: ", error)
+    console.log("ERROR \t adding members: ", error)
     return false
   }
 }
